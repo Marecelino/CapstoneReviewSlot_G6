@@ -1,0 +1,9 @@
+syntax = "proto3";
+option csharp_namespace = "GrpcContract.Session";
+package session;
+
+service SessionGrpc {
+  rpc GetSessionInfo (GetSessionRequest) returns (SessionResponse);
+}
+message GetSessionRequest { string session_id = 1; }
+message SessionResponse { string id = 1; }

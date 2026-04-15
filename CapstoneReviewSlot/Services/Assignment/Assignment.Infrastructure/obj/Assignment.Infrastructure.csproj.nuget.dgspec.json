@@ -1,0 +1,394 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Infrastructure\\Assignment.Infrastructure.csproj": {}
+  },
+  "projects": {
+    "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj",
+        "projectName": "GrpcContract",
+        "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj",
+        "packagesPath": "C:\\Users\\Vagabond\\.nuget\\packages\\",
+        "outputPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Vagabond\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Google.Protobuf": {
+              "target": "Package",
+              "version": "[3.34.1, )"
+            },
+            "Grpc.AspNetCore": {
+              "target": "Package",
+              "version": "[2.76.0, )"
+            },
+            "Grpc.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.80.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Application\\Assignment.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Application\\Assignment.Application.csproj",
+        "projectName": "Assignment.Application",
+        "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Application\\Assignment.Application.csproj",
+        "packagesPath": "C:\\Users\\Vagabond\\.nuget\\packages\\",
+        "outputPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Vagabond\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Domain\\Assignment.Domain.csproj": {
+                "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Domain\\Assignment.Domain.csproj"
+              },
+              "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj": {
+                "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[16.1.1, )"
+            },
+            "FluentValidation.DependencyInjectionExtensions": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[14.1.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Domain\\Assignment.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Domain\\Assignment.Domain.csproj",
+        "projectName": "Assignment.Domain",
+        "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Domain\\Assignment.Domain.csproj",
+        "packagesPath": "C:\\Users\\Vagabond\\.nuget\\packages\\",
+        "outputPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Vagabond\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Infrastructure\\Assignment.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Infrastructure\\Assignment.Infrastructure.csproj",
+        "projectName": "Assignment.Infrastructure",
+        "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Infrastructure\\Assignment.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Vagabond\\.nuget\\packages\\",
+        "outputPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Vagabond\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj": {
+                "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj"
+              },
+              "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Application\\Assignment.Application.csproj": {
+                "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Assignment\\Assignment.Application\\Assignment.Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Grpc.Net.Client": {
+              "target": "Package",
+              "version": "[2.76.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj",
+        "projectName": "CapstoneReviewSlot.Shared",
+        "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj",
+        "packagesPath": "C:\\Users\\Vagabond\\.nuget\\packages\\",
+        "outputPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Vagabond\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

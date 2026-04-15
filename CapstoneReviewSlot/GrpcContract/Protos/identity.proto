@@ -1,0 +1,9 @@
+syntax = "proto3";
+option csharp_namespace = "GrpcContract.Identity";
+package identity;
+
+service IdentityGrpc {
+  rpc ValidateToken (ValidateTokenRequest) returns (ValidateTokenResponse);
+}
+message ValidateTokenRequest { string token = 1; }
+message ValidateTokenResponse { bool is_valid = 1; }

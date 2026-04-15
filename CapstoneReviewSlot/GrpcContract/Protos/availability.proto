@@ -1,0 +1,9 @@
+syntax = "proto3";
+option csharp_namespace = "GrpcContract.Availability";
+package availability;
+
+service AvailabilityGrpc {
+  rpc CheckLecturerAvailable (CheckRequest) returns (CheckResponse);
+}
+message CheckRequest { string lecturer_id = 1; }
+message CheckResponse { bool is_available = 1; }
