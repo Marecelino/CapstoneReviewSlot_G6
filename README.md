@@ -5,6 +5,7 @@
 Capstone Review Slot Management System là hệ thống quản lý và tự động hóa quy trình đăng ký, phân công, và tổng hợp lịch review cho môn Capstone Project.
 
 Hệ thống thay thế hoàn toàn quy trình quản lý thủ công bằng Excel hiện tại, nơi giảng viên và sinh viên nhập liệu thủ công vào nhiều file riêng biệt, sau đó Trưởng bộ môn phải tổng hợp và phân công thủ công để tạo timeline review cuối cùng.
+<img width="782" height="352" alt="PRN232_3W-System Context Diagram" src="https://github.com/user-attachments/assets/2e3a1f77-12b7-4106-8862-465e192eafc8" />
 
 Mục tiêu của dự án là xây dựng một nền tảng **REST API Microservices bằng .NET 8** giúp:
 
