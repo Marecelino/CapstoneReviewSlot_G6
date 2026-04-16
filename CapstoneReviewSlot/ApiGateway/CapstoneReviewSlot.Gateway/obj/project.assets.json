@@ -1902,23 +1902,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Vagabond\\.nuget\\packages\\": {},
+    "C:\\Users\\DELL\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\ApiGateway\\CapstoneReviewSlot.Gateway\\CapstoneReviewSlot.Gateway.csproj",
+      "projectUniqueName": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\ApiGateway\\CapstoneReviewSlot.Gateway\\CapstoneReviewSlot.Gateway.csproj",
       "projectName": "CapstoneReviewSlot.Gateway",
-      "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\ApiGateway\\CapstoneReviewSlot.Gateway\\CapstoneReviewSlot.Gateway.csproj",
-      "packagesPath": "C:\\Users\\Vagabond\\.nuget\\packages\\",
-      "outputPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\ApiGateway\\CapstoneReviewSlot.Gateway\\obj\\",
+      "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\ApiGateway\\CapstoneReviewSlot.Gateway\\CapstoneReviewSlot.Gateway.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\ApiGateway\\CapstoneReviewSlot.Gateway\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Vagabond\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1927,7 +1927,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1946,7 +1945,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -1988,7 +1987,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.310/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -2,17 +2,22 @@
   "version": 3,
   "targets": {
     "net8.0": {
-      "AutoMapper.Extensions.Microsoft.DependencyInjection/12.0.1": {
+      "AutoMapper/16.1.1": {
         "type": "package",
         "dependencies": {
-          "AutoMapper": "[12.0.1]",
-          "Microsoft.Extensions.Options": "6.0.0"
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.0",
+          "Microsoft.Extensions.Options": "10.0.0",
+          "Microsoft.IdentityModel.JsonWebTokens": "8.14.0"
         },
         "compile": {
-          "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+          "lib/net8.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+          "lib/net8.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
         }
       },
       "ClosedXML/0.105.0": {
@@ -1126,18 +1131,28 @@
     }
   },
   "libraries": {
-    "AutoMapper.Extensions.Microsoft.DependencyInjection/12.0.1": {
-      "sha512": "+g/K+Vpe3gGMKGzjslMOdqNlkikScDjWfVvmWTayrDHaG/n2pPmFBMa+jKX1r/h6BDGFdkyRjAuhFE3ykW+r1g==",
+    "AutoMapper/16.1.1": {
+      "sha512": "VNEky8JA15ci+oIDRGHITOGOpV4dILsf8pnn24QhDl2urtqgJ2IXiS/V2EtGU17P/+f6OeFQPJETaZXV9QOIZg==",
       "type": "package",
-      "path": "automapper.extensions.microsoft.dependencyinjection/12.0.1",
+      "path": "automapper/16.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "LICENSE.md",
         "README.md",
-        "automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
-        "automapper.extensions.microsoft.dependencyinjection.nuspec",
+        "automapper.16.1.1.nupkg.sha512",
+        "automapper.nuspec",
         "icon.png",
-        "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+        "lib/net10.0/AutoMapper.dll",
+        "lib/net10.0/AutoMapper.xml",
+        "lib/net471/AutoMapper.dll",
+        "lib/net471/AutoMapper.xml",
+        "lib/net8.0/AutoMapper.dll",
+        "lib/net8.0/AutoMapper.xml",
+        "lib/net9.0/AutoMapper.dll",
+        "lib/net9.0/AutoMapper.xml",
+        "lib/netstandard2.0/AutoMapper.dll",
+        "lib/netstandard2.0/AutoMapper.xml"
       ]
     },
     "ClosedXML/0.105.0": {
@@ -2787,7 +2802,6 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
       "GrpcContract >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 8.0.14",
       "Serilog.AspNetCore >= 10.0.0",
@@ -2797,23 +2811,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Vagabond\\.nuget\\packages\\": {},
+    "C:\\Users\\DELL\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Api\\Session.Api.csproj",
+      "projectUniqueName": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Api\\Session.Api.csproj",
       "projectName": "Session.Api",
-      "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Api\\Session.Api.csproj",
-      "packagesPath": "C:\\Users\\Vagabond\\.nuget\\packages\\",
-      "outputPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Api\\obj\\",
+      "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Api\\Session.Api.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Vagabond\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2822,21 +2836,20 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj": {
-              "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj"
+            "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj": {
+              "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj"
             },
-            "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Application\\Session.Application.csproj": {
-              "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Application\\Session.Application.csproj"
+            "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Application\\Session.Application.csproj": {
+              "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Application\\Session.Application.csproj"
             },
-            "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Infrastructure\\Session.Infrastructure.csproj": {
-              "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Infrastructure\\Session.Infrastructure.csproj"
+            "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Infrastructure\\Session.Infrastructure.csproj": {
+              "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Session\\Session.Infrastructure\\Session.Infrastructure.csproj"
             }
           }
         }
@@ -2851,16 +2864,12 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-            "target": "Package",
-            "version": "[12.0.1, )"
-          },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[8.0.14, )"
@@ -2893,19 +2902,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.310/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1107",
-      "level": "Error",
-      "message": "Version conflict detected for AutoMapper. Install/reference AutoMapper 16.1.1 directly to project Session.Api to resolve this issue. \r\n Session.Api -> Session.Application -> AutoMapper (>= 16.1.1) \r\n Session.Api -> AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 -> AutoMapper (= 12.0.1).",
-      "libraryId": "AutoMapper",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }

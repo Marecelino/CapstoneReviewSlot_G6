@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Infrastructure\\Registration.Infrastructure.csproj": {}
+    "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Infrastructure\\Registration.Infrastructure.csproj": {}
   },
   "projects": {
-    "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj": {
+    "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj",
+        "projectUniqueName": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj",
         "projectName": "GrpcContract",
-        "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj",
-        "packagesPath": "C:\\Users\\Vagabond\\.nuget\\packages\\",
-        "outputPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\obj\\",
+        "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Vagabond\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -82,24 +81,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.310/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Application\\Registration.Application.csproj": {
+    "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Application\\Registration.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Application\\Registration.Application.csproj",
+        "projectUniqueName": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Application\\Registration.Application.csproj",
         "projectName": "Registration.Application",
-        "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Application\\Registration.Application.csproj",
-        "packagesPath": "C:\\Users\\Vagabond\\.nuget\\packages\\",
-        "outputPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Application\\obj\\",
+        "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Application\\Registration.Application.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Vagabond\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -108,18 +107,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Domain\\Registration.Domain.csproj": {
-                "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Domain\\Registration.Domain.csproj"
+              "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Domain\\Registration.Domain.csproj": {
+                "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Domain\\Registration.Domain.csproj"
               },
-              "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj": {
-                "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj"
+              "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj": {
+                "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj"
               }
             }
           }
@@ -134,7 +132,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -169,24 +167,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.310/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Domain\\Registration.Domain.csproj": {
+    "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Domain\\Registration.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Domain\\Registration.Domain.csproj",
+        "projectUniqueName": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Domain\\Registration.Domain.csproj",
         "projectName": "Registration.Domain",
-        "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Domain\\Registration.Domain.csproj",
-        "packagesPath": "C:\\Users\\Vagabond\\.nuget\\packages\\",
-        "outputPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Domain\\obj\\",
+        "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Domain\\Registration.Domain.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Vagabond\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -195,7 +193,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -214,7 +211,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -235,24 +232,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.310/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Infrastructure\\Registration.Infrastructure.csproj": {
+    "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Infrastructure\\Registration.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Infrastructure\\Registration.Infrastructure.csproj",
+        "projectUniqueName": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Infrastructure\\Registration.Infrastructure.csproj",
         "projectName": "Registration.Infrastructure",
-        "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Infrastructure\\Registration.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Vagabond\\.nuget\\packages\\",
-        "outputPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Infrastructure\\obj\\",
+        "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Infrastructure\\Registration.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Vagabond\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -261,18 +258,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj": {
-                "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj"
+              "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj": {
+                "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\GrpcContract\\GrpcContract.csproj"
               },
-              "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Application\\Registration.Application.csproj": {
-                "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Application\\Registration.Application.csproj"
+              "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Application\\Registration.Application.csproj": {
+                "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Services\\Registration\\Registration.Application\\Registration.Application.csproj"
               }
             }
           }
@@ -287,7 +283,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -320,24 +316,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.310/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj": {
+    "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj",
+        "projectUniqueName": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj",
         "projectName": "CapstoneReviewSlot.Shared",
-        "projectPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj",
-        "packagesPath": "C:\\Users\\Vagabond\\.nuget\\packages\\",
-        "outputPath": "D:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\obj\\",
+        "projectPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\CapstoneReviewSlot.Shared.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "E:\\CapstoneReviewSlot_G6\\CapstoneReviewSlot\\Shared\\CapstoneReviewSlot.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Vagabond\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -346,7 +342,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -365,7 +360,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -386,7 +381,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.310/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

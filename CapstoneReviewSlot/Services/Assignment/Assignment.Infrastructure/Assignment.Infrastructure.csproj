@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Assignment.Application\Assignment.Application.csproj" />
     <ProjectReference Include="..\..\..\GrpcContract\GrpcContract.csproj" />
+    <ProjectReference Include="..\Assignment.Domain\Assignment.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
