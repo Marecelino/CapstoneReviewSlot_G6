@@ -32,10 +32,15 @@ namespace Session.Application.Services
                 Name = request.Name,
                 StartTime = request.StartTime,
                 EndTime = request.EndTime,
-                Status = ReviewCampaignStatus.Draft.ToString()
+                Status = ReviewCampaignStatus.Draft.ToString(),
+                ReviewSlots = new List<ReviewSlot>()
             };
 
             await _unitOfWork.ReviewCampaigns.AddAsync(reviewCampaign);
+            await _unitOfWork.SaveChangesAsync();
+
+            await GenerateDefaultSlotsAsync(reviewCampaign);
+
             await _unitOfWork.SaveChangesAsync();
             return ToReviewCampaignDto(reviewCampaign);
         }
@@ -142,6 +147,50 @@ namespace Session.Application.Services
             return true;
         }
 
+        private async Task GenerateDefaultSlotsAsync(ReviewCampaign campaign)
+        {
+            var slots = new List<ReviewSlot>();
+
+            var startDate = DateOnly.FromDateTime(campaign.StartTime);
+            var endDate = DateOnly.FromDateTime(campaign.EndTime);
+
+            for (var date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                var dayOfWeek = date.ToDateTime(TimeOnly.MinValue).DayOfWeek;
+
+                if (dayOfWeek == DayOfWeek.Sunday)
+                {
+                    continue;
+                }
+
+                foreach (var slot in DefaultSlots)
+                {
+                    slots.Add(new ReviewSlot
+                    {
+                        Id = Guid.NewGuid(),
+                        CampaignId = campaign.Id,
+                        ReviewDate = date,
+                        SlotNumber = slot.SlotNumber,
+                        StartTime = slot.Start,
+                        EndTime = slot.End,
+                        Room = string.Empty,
+                        MaxCapacity = 30
+                    });
+                }
+            }
+
+            await _unitOfWork.ReviewSlots.AddRangeAsync(slots);
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        private static readonly List<(int SlotNumber, TimeOnly Start, TimeOnly End)> DefaultSlots =
+        [
+            (1, new TimeOnly(7, 0), new TimeOnly(9, 15)),
+            (2, new TimeOnly(9, 30), new TimeOnly(11, 45)),
+            (3, new TimeOnly(12, 30), new TimeOnly(14, 45)),
+            (4, new TimeOnly(15, 0), new TimeOnly(17, 15))
+        ];
+
         private static ReviewCampaignDto ToReviewCampaignDto(ReviewCampaign entity)
         {
             return new ReviewCampaignDto
@@ -151,6 +200,17 @@ namespace Session.Application.Services
                 StartTime = entity.StartTime,
                 EndTime = entity.EndTime,
                 Status = entity.Status,
+                ReviewSlots = entity.ReviewSlots?.Select(slot => new ReviewSlotDto
+                {
+                    Id = slot.Id,
+                    CampaignId = slot.CampaignId,
+                    ReviewDate = slot.ReviewDate,
+                    SlotNumber = slot.SlotNumber,
+                    StartTime = slot.StartTime,
+                    EndTime = slot.EndTime,
+                    Room = slot.Room,
+                    MaxCapacity = slot.MaxCapacity
+                }).ToList() ?? new List<ReviewSlotDto>()
             };
         }
     }

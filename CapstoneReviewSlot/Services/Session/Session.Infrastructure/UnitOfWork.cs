@@ -17,6 +17,7 @@ namespace Session.Infrastructure
         {
             _dbContext = dbContext;
             ReviewCampaigns = reviewCampaigns;
+            ReviewSlots = reviewSlots;
         }
 
         public IGenericRepository<ReviewCampaign> ReviewCampaigns { get; }

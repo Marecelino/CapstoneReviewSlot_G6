@@ -46,6 +46,7 @@ namespace Session.Api.Architecture
             services.AddScoped<ICurrentTime, CurrentTime>();
 
             services.AddScoped<IReviewCampaignService, ReviewCampaignService>();
+            services.AddScoped<IReviewSlotService, ReviewSlotService>();
 
             return services;
         }
