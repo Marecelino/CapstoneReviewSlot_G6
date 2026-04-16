@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Session.Domain.Interfaces;
 using Session.Infrastructure.Persistence;
+using Session.Infrastructure.Repositories;
 
 namespace Session.Infrastructure
 {
@@ -20,6 +22,7 @@ namespace Session.Infrastructure
 
             services.AddDbContext<SessionDbContext>(options =>
                 options.UseSqlServer(connectionString));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

@@ -1,4 +1,6 @@
-﻿using Availability.Infrastructure.Persistence;
+using Availability.Infrastructure.Persistence;
+using Availability.Infrastructure.Repositories;
+using Availability.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +22,7 @@ namespace Availability.Infrastructure
 
             services.AddDbContext<AvailabilityDbContext>(options =>
                 options.UseSqlServer(connectionString));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
