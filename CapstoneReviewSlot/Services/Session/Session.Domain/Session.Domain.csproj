@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\CapstoneReviewSlot.Shared\CapstoneReviewSlot.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
