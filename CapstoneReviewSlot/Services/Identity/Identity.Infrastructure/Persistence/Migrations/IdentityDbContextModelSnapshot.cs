@@ -22,6 +22,35 @@ namespace Identity.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Identity.Domain.Entities.Lecturer", b =>
+                {
+                    b.Property<Guid>("LecturerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Department")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LecturerCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LecturerId");
+
+                    b.HasIndex("LecturerCode")
+                        .IsUnique();
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Lecturer", (string)null);
+                });
+
             modelBuilder.Entity("Identity.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -57,6 +86,11 @@ namespace Identity.Infrastructure.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
                     b.Property<DateTime?>("UpdatedAtUtc")
                         .HasColumnType("datetime2");
 
@@ -66,6 +100,22 @@ namespace Identity.Infrastructure.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("User", (string)null);
+                });
+
+            modelBuilder.Entity("Identity.Domain.Entities.Lecturer", b =>
+                {
+                    b.HasOne("Identity.Domain.Entities.User", "User")
+                        .WithOne("Lecturer")
+                        .HasForeignKey("Identity.Domain.Entities.Lecturer", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Identity.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Lecturer");
                 });
 #pragma warning restore 612, 618
         }
