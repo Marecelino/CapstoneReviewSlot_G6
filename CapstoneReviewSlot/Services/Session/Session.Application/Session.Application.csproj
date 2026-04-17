@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Session.Domain\Session.Domain.csproj" />
-    <ProjectReference Include="..\..\..\Shared\CapstoneReviewSlot.Shared\CapstoneReviewSlot.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageReference Include="MediatR" Version="14.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Session.Infrastructure\Session.Infrastructure.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
