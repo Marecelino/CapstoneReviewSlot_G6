@@ -1,4 +1,4 @@
-﻿using Identity.Application.Abstractions.Persistence;
+using Identity.Application.Abstractions.Persistence;
 using Identity.Application.Abstractions.Security;
 using Identity.Infrastructure.Persistence;
 using Identity.Infrastructure.Persistence.Repositories;
@@ -18,16 +18,18 @@ public static class DependencyInjection
         var connectionString = configuration.GetConnectionString("IdentityDb");
 
         if (string.IsNullOrWhiteSpace(connectionString))
-        {
-            throw new InvalidOperationException("Connection string 'IdentityDb' is not configured.");
-        }
+            throw new InvalidOperationException("Connection string 'IdentityDB' is not configured.");
 
         services.AddDbContext<IdentityDbContext>(options =>
             options.UseSqlServer(connectionString));
 
-        services.AddScoped<IUserRepository, UserRepository>();
+        // Repositories
+        services.AddScoped<IUserRepository,     UserRepository>();
+        services.AddScoped<ILecturerRepository, LecturerRepository>();
+
+        // Security
         services.AddScoped<IPasswordHasherService, PasswordHasherService>();
-        services.AddScoped<IJwtTokenService, JwtTokenService>();
+        services.AddScoped<IJwtTokenService,       JwtTokenService>();
 
         return services;
     }

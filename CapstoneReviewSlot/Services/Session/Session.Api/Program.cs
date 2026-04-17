@@ -1,3 +1,5 @@
+using Session.Infrastructure;
+using Session.Application.Features.Queries.GetActiveCampaigns;
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Session.Api.Architecture;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,6 +12,9 @@ builder.Services.AddControllers()
     .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(GetActiveCampaignsQuery).Assembly));
 
 //builder.Services.SetupIocContainer();
 builder.Configuration
@@ -34,10 +39,10 @@ builder.Services.AddCors(options =>
 // Tắt việc map claim mặc định
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-builder.WebHost.UseUrls("http://0.0.0.0:5000");
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.SetupIocContainer();
-
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 

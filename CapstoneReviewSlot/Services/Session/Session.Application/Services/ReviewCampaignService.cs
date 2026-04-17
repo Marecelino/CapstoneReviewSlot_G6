@@ -90,7 +90,7 @@ namespace Session.Application.Services
             {
                 reviewCampaign.EndTime = request.EndTime;
             }
-            if (!string.IsNullOrEmpty(request.Status) || request.Status.ToString() != reviewCampaign.Status)
+            if (!string.IsNullOrEmpty(request.Status) || request.Status.ToString() != reviewCampaign.Status.ToString())
             {
                 reviewCampaign.Status = request.Status.ToString();
             }

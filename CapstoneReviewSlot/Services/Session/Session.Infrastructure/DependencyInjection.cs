@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Session.Domain.Interfaces;
 using Session.Infrastructure.Persistence;
+using Session.Infrastructure.Repositories;
 
 namespace Session.Infrastructure
 {
