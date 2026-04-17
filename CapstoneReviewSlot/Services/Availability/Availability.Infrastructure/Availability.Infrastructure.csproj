@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Availability.Application\Availability.Application.csproj" />
+	  <ProjectReference Include="..\Availability.Domain\Availability.Domain.csproj" />
     <ProjectReference Include="..\..\..\GrpcContract\GrpcContract.csproj" />
   </ItemGroup>
 

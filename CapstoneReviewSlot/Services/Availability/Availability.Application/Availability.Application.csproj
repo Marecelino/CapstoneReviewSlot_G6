@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Availability.Domain\Availability.Domain.csproj" />
-    <ProjectReference Include="..\..\..\Shared\CapstoneReviewSlot.Shared\CapstoneReviewSlot.Shared.csproj" />
+	  <ProjectReference Include="..\Availability.Domain\Availability.Domain.csproj" />
+	  <ProjectReference Include="..\Availability.Infrastructure\Availability.Infrastructure.csproj" />
+	  <ProjectReference Include="..\..\..\Shared\CapstoneReviewSlot.Shared\CapstoneReviewSlot.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
