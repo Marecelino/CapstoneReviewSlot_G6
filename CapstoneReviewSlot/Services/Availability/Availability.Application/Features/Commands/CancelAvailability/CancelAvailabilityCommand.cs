@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Availability.Application.Features.Commands.CancelAvailability;
 
-public record CancelAvailabilityCommand(int LecturerId, Guid SlotId) : IRequest<LecturerAvailabilityDto>;
+public record CancelAvailabilityCommand(Guid LecturerId, Guid SlotId) : IRequest<LecturerAvailabilityDto>;
 
 public class CancelAvailabilityCommandHandler
     : IRequestHandler<CancelAvailabilityCommand, LecturerAvailabilityDto>
@@ -19,8 +19,7 @@ public class CancelAvailabilityCommandHandler
             ?? throw new KeyNotFoundException(
                 $"Giảng viên {request.LecturerId} chưa đăng ký slot {request.SlotId}.");
 
-        record.Cancel();
-        await _uow.Availabilities.UpdateAsync(record, ct);
+        await _uow.Availabilities.DeleteAsync(record, ct);
         await _uow.SaveChangesAsync(ct);
 
         return new LecturerAvailabilityDto(

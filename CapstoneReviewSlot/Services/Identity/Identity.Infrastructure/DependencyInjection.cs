@@ -15,7 +15,7 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("IdentityDB");
+        var connectionString = configuration.GetConnectionString("IdentityDb");
 
         if (string.IsNullOrWhiteSpace(connectionString))
             throw new InvalidOperationException("Connection string 'IdentityDB' is not configured.");

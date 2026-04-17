@@ -83,9 +83,13 @@ public class AvailabilityController : ControllerBase
     }
 
     // ── Helper ────────────────────────────────────────────────────────────────
-    private int? GetLecturerId()
+    private Guid? GetLecturerId()
     {
-        var claim = User.FindFirst("lecturer_id")?.Value;
-        return claim is not null && int.TryParse(claim, out var id) ? id : null;
+        var lecturerId = User.FindFirst("lecturer_id")?.Value;
+
+        if (!Guid.TryParse(lecturerId, out var id))
+            return null;
+
+        return id;
     }
 }

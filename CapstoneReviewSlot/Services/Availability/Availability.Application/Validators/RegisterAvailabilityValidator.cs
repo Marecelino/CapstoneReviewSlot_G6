@@ -8,7 +8,8 @@ public class RegisterAvailabilityCommandValidator : AbstractValidator<RegisterAv
     public RegisterAvailabilityCommandValidator()
     {
         RuleFor(x => x.LecturerId)
-            .GreaterThan(0).WithMessage("LecturerId phải là số dương.");
+            .Must(id => id != Guid.Empty)
+            .WithMessage("LecturerId không hợp lệ.");
 
         RuleFor(x => x.SlotIds)
             .NotEmpty().WithMessage("Phải chọn ít nhất 1 slot.")

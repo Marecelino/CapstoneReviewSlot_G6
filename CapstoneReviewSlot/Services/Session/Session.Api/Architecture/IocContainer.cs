@@ -14,7 +14,9 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
-
+using SessionCoreUnitOfWork = Session.Infrastructure.UnitOfWork;
+using DomainUnitOfWork = Session.Domain.Interfaces.IUnitOfWork;
+using RepositoryUnitOfWork = Session.Infrastructure.Repositories.UnitOfWork;
 namespace Session.Api.Architecture
 {
     public static class IocContainer
@@ -42,7 +44,13 @@ namespace Session.Api.Architecture
         public static IServiceCollection SetupBusinessServicesLayer(this IServiceCollection services)
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // For services using Session.Infrastructure.Interfaces.IUnitOfWork
+            services.AddScoped<Session.Infrastructure.Interfaces.IUnitOfWork, SessionCoreUnitOfWork>();
+
+            // For MediatR handlers using Session.Domain.Interfaces.IUnitOfWork
+            services.AddScoped<DomainUnitOfWork, RepositoryUnitOfWork>();
+
             services.AddScoped<ICurrentTime, CurrentTime>();
 
             services.AddScoped<IReviewCampaignService, ReviewCampaignService>();

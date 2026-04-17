@@ -20,7 +20,7 @@ public class ReviewCampaignRepository : IReviewCampaignRepository
 
     public async Task<IEnumerable<ReviewCampaign>> GetOpenAsync(CancellationToken ct = default)
         => await _ctx.ReviewCampaigns
-                     .Where(c => c.Status == CampaignStatus.Open)
+                     .Where(c => c.Status == CampaignStatus.Open.ToString())
                      .ToListAsync(ct);
 
     public async Task AddAsync(ReviewCampaign campaign, CancellationToken ct = default)

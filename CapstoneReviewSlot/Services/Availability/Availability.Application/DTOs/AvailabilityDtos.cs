@@ -4,7 +4,7 @@ namespace Availability.Application.DTOs;
 
 public record LecturerAvailabilityDto(
     Guid Id,
-    int LecturerId,
+    Guid LecturerId,
     Guid ReviewSlotId,
     AvailabilityStatus Status,
     DateTime RegisteredAt);

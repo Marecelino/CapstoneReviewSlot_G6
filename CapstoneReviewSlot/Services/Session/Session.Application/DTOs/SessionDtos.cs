@@ -9,7 +9,7 @@ public record ReviewCampaignDto(
     DateTime EndTime,
     int MaxGroupsPerLecturer,
     int RequiredReviewersPerGroup,
-    CampaignStatus Status);
+    string Status);
 
 public record ReviewSlotDto(
     Guid ReviewSlotId,
