@@ -1,4 +1,8 @@
-﻿using Assignment.Infrastructure.Persistence;
+﻿using Assignment.Application.Services;
+using Assignment.Domain.Interfaces.Repositories;
+using Assignment.Domain.Interfaces.Services;
+using Assignment.Infrastructure.Persistence;
+using Assignment.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +29,10 @@ namespace Assignment.Infrastructure
 
             services.AddDbContext<AssignmentDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped<IReviewAssignmentRepository, ReviewAssignmentRepository>();
+            services.AddScoped<IReviewAssignmentReviewerRepository, ReviewAssignmentReviewerRepository>();
+
 
             return services;
         }
