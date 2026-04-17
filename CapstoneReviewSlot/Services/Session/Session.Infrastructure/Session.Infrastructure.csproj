@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Session.Application\Session.Application.csproj" />
-    <ProjectReference Include="..\..\..\GrpcContract\GrpcContract.csproj" />
+    <ProjectReference Include="..\Session.Domain\Session.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,8 @@
-﻿using Entities;
-
-namespace Session.Domain.Entities
+﻿namespace Session.Domain.DTOs
 {
-    public class ReviewSlot : BaseEntity
+    public class ReviewSlotDto
     {
+        public Guid Id { get; set; }
         public Guid CampaignId { get; set; }
         public DateOnly ReviewDate { get; set; }
         public int SlotNumber { get; set; }
@@ -11,7 +10,5 @@ namespace Session.Domain.Entities
         public TimeOnly EndTime { get; set; }
         public string Room { get; set; } = default!;
         public int MaxCapacity { get; set; }
-
-        public ReviewCampaign? ReviewCampaign { get; set; }
     }
 }
