@@ -19,7 +19,7 @@ namespace Session.Domain.Entities
 
         public ReviewCampaign ReviewCampaign { get; set; } = default!;
 
-        private ReviewSlot() { }
+        public ReviewSlot() { }
 
         public static ReviewSlot Create(Guid campaignId, DateOnly reviewDate, int slotNumber, TimeOnly startTime, TimeOnly endTime, int maxCapacity, string? room)
         {

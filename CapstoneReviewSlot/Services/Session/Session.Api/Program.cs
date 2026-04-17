@@ -39,10 +39,10 @@ builder.Services.AddCors(options =>
 // Tắt việc map claim mặc định
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-builder.WebHost.UseUrls("http://0.0.0.0:5000");
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.SetupIocContainer();
-
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 

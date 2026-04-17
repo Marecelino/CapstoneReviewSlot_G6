@@ -33,7 +33,9 @@ public class IdentityDbContext : DbContext
         {
             e.ToTable("Lecturer");
             e.HasKey(l => l.LecturerId);
-            e.Property(l => l.LecturerId).UseIdentityColumn();
+            e.Property(l => l.LecturerId)
+                .ValueGeneratedOnAdd()
+                .HasDefaultValueSql("NEWSEQUENTIALID()");
             e.Property(l => l.LecturerCode).IsRequired().HasMaxLength(50);
             e.HasIndex(l => l.LecturerCode).IsUnique();
             e.HasIndex(l => l.UserId).IsUnique();

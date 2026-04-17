@@ -10,7 +10,7 @@ namespace Availability.Application.Features.Commands.RegisterAvailability;
 /// LecturerId được trích xuất từ JWT (không nhận từ body).
 /// </summary>
 public record RegisterAvailabilityCommand(
-    int LecturerId,
+    Guid LecturerId,
     IReadOnlyList<Guid> SlotIds) : IRequest<IEnumerable<LecturerAvailabilityDto>>;
 
 public class RegisterAvailabilityCommandHandler

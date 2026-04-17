@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Session.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using Session.Infrastructure.Persistence;
 namespace Session.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(SessionDbContext))]
-    partial class SessionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260417024857_RefactorEntity")]
+    partial class RefactorEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

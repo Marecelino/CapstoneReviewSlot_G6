@@ -22,7 +22,6 @@ namespace Session.Infrastructure
 
             services.AddDbContext<SessionDbContext>(options =>
                 options.UseSqlServer(connectionString));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

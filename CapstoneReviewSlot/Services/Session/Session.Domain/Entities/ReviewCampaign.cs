@@ -1,4 +1,5 @@
 using Entities;
+using Session.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,11 @@ namespace Session.Domain.Entities
         public DateTime EndTime { get; set; }
         public int MaxGroupsPerLecturer { get; set; }
         public int RequiredReviewersPerGroup { get; set; }
-        public Session.Domain.Enums.CampaignStatus Status { get; set; }
+        public string Status { get; set; }
 
         public ICollection<ReviewSlot> ReviewSlots { get; set; } = new List<ReviewSlot>();
 
-        private ReviewCampaign() { }
+        public ReviewCampaign() { }
 
         public static ReviewCampaign Create(string name, DateTime startTime, DateTime endTime, int maxGroups, int requiredReviewers)
         {
@@ -29,7 +30,7 @@ namespace Session.Domain.Entities
                 EndTime = endTime,
                 MaxGroupsPerLecturer = maxGroups,
                 RequiredReviewersPerGroup = requiredReviewers,
-                Status = Session.Domain.Enums.CampaignStatus.Draft
+                Status = CampaignStatus.Draft.ToString()
             };
         }
     }
