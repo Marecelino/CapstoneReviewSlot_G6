@@ -1,13 +1,6 @@
-﻿using DocumentFormat.OpenXml.InkML;
-using Entities;
+﻿using Entities;
 using Microsoft.EntityFrameworkCore;
 using Session.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Session.Infrastructure.Persistence
 {
