@@ -1,3 +1,5 @@
+using Session.Infrastructure;
+using Session.Application.Features.Queries.GetActiveCampaigns;
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Session.Api.Architecture;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,6 +12,9 @@ builder.Services.AddControllers()
     .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(GetActiveCampaignsQuery).Assembly));
 
 //builder.Services.SetupIocContainer();
 builder.Configuration

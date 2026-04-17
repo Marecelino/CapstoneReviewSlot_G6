@@ -1,14 +1,11 @@
-﻿using Identity.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Identity.Domain.Entities;
 
-namespace Identity.Application.Abstractions.Security
+namespace Identity.Application.Abstractions.Security;
+
+public interface IJwtTokenService
 {
-    public interface IJwtTokenService
-    {
-        string GenerateToken(User user);
-    }
+    string GenerateToken(User user, Guid? lecturerId = null);
+    bool ValidateToken(string token);
+    Guid? GetUserIdFromToken(string token);
+    Guid? GetLecturerIdFromToken(string token);
 }
