@@ -48,7 +48,19 @@ namespace Session.Application.Services
         public async Task<List<ReviewCampaignDto>> GetAllReviewCampaignsAsync()
         {
             var reviewCampaigns = await _unitOfWork.ReviewCampaigns.GetAllAsync();
-            return reviewCampaigns.Select(ToReviewCampaignDto).ToList();
+            var reviewSlots = await _unitOfWork.ReviewSlots.GetAllAsync();
+
+            return reviewCampaigns.Select(campaign =>
+            {
+                var dto = ToReviewCampaignDto(campaign);
+
+                dto.ReviewSlots = reviewSlots
+                    .Where(slot => slot.CampaignId == campaign.Id)
+                    .Select(ToReviewSlotDto)
+                    .ToList();
+
+                return dto;
+            }).ToList();
         }
 
         public async Task<ReviewCampaignDto?> GetReviewCampaignByIdAsync(Guid id)
@@ -58,7 +70,14 @@ namespace Session.Application.Services
             {
                 throw ErrorHelper.NotFound("Review Campaign not found!");
             }
-            return ToReviewCampaignDto(reviewCampaign);
+
+            var reviewSlots = await _unitOfWork.ReviewSlots
+                .FindAsync(x => x.CampaignId == id);
+
+            var dto = ToReviewCampaignDto(reviewCampaign);
+            dto.ReviewSlots = reviewSlots.Select(ToReviewSlotDto).ToList();
+
+            return dto;
         }
 
         public async Task<ReviewCampaignDto?> UpdateReviewCampaignAsync(Guid id, UpdateReviewCampaignDto request)
@@ -68,35 +87,62 @@ namespace Session.Application.Services
             {
                 throw ErrorHelper.NotFound("Review Campaign not found!");
             }
+
+            // check overlap
             var isExisting = await _unitOfWork.ReviewCampaigns
                 .ExistsAsync(x =>
                     x.Id != id &&
                     x.StartTime < request.EndTime &&
                     x.EndTime > request.StartTime
                 );
+
             if (isExisting)
             {
                 throw ErrorHelper.BadRequest("Review Campaign is already created!");
             }
-            if (!string.IsNullOrEmpty(request.Name) || request.Name != reviewCampaign.Name)
+
+            // detect time change
+            var isTimeChanged =
+                (request.StartTime != default && request.StartTime != reviewCampaign.StartTime) ||
+                (request.EndTime != default && request.EndTime != reviewCampaign.EndTime);
+
+            // update fields
+            if (!string.IsNullOrEmpty(request.Name) && request.Name != reviewCampaign.Name)
             {
                 reviewCampaign.Name = request.Name;
             }
-            if (request.StartTime != default(DateTime) || request.StartTime != reviewCampaign.StartTime)
+
+            if (request.StartTime != default && request.StartTime != reviewCampaign.StartTime)
             {
                 reviewCampaign.StartTime = request.StartTime;
             }
-            if (request.EndTime != default(DateTime) || request.EndTime != reviewCampaign.EndTime)
+
+            if (request.EndTime != default && request.EndTime != reviewCampaign.EndTime)
             {
                 reviewCampaign.EndTime = request.EndTime;
             }
-            if (!string.IsNullOrEmpty(request.Status) || request.Status.ToString() != reviewCampaign.Status)
+
+            if (isTimeChanged)
             {
-                reviewCampaign.Status = request.Status.ToString();
+                var oldSlots = await _unitOfWork.ReviewSlots
+                    .FindAsync(x => x.CampaignId == id);
+
+                if (oldSlots.Any())
+                {
+                    await _unitOfWork.ReviewSlots.HardRemoveRange(oldSlots);
+                    await _unitOfWork.SaveChangesAsync();
+                }
+
+                await GenerateDefaultSlotsAsync(reviewCampaign);
             }
+
             await _unitOfWork.ReviewCampaigns.Update(reviewCampaign);
             await _unitOfWork.SaveChangesAsync();
-            return ToReviewCampaignDto(reviewCampaign);
+
+            var updatedCampaign = await _unitOfWork.ReviewCampaigns
+            .GetByIdAsync(id); // include slots
+
+            return ToReviewCampaignDto(updatedCampaign);
         }
 
         public async Task<bool> ChangeReviewCampaignStatusAsync(Guid id, ReviewCampaignStatus status)
@@ -106,22 +152,7 @@ namespace Session.Application.Services
             {
                 throw ErrorHelper.NotFound("Review Campaign not found!");
             }
-            if (reviewCampaign.Status.Equals(ReviewCampaignStatus.Draft))
-            {
-                reviewCampaign.Status = ReviewCampaignStatus.Open.ToString();
-            }
-            else if (reviewCampaign.Status.Equals(ReviewCampaignStatus.Open))
-            {
-                reviewCampaign.Status = ReviewCampaignStatus.Closed.ToString();
-            }
-            else if (reviewCampaign.Status.Equals(ReviewCampaignStatus.Closed))
-            {
-                reviewCampaign.Status = ReviewCampaignStatus.Open.ToString();
-            }
-            else
-            {
-                throw ErrorHelper.BadRequest("Invalid Review Campaign status!");
-            }
+            reviewCampaign.Status = status.ToString();
             await _unitOfWork.ReviewCampaigns.Update(reviewCampaign);
             await _unitOfWork.SaveChangesAsync();
             return true;
@@ -134,13 +165,21 @@ namespace Session.Application.Services
             {
                 throw ErrorHelper.NotFound("Review Campaign not found!");
             }
-            if (reviewCampaign.ReviewSlots != null && reviewCampaign.ReviewSlots.Any())
-            {
-                throw ErrorHelper.BadRequest("Cannot delete Review Campaign with existing Review Slots!");
-            }
+            //if (reviewCampaign.ReviewSlots != null && reviewCampaign.ReviewSlots.Any())
+            //{
+            //    throw ErrorHelper.BadRequest("Cannot delete Review Campaign with existing Review Slots!");
+            //}
             if (reviewCampaign.Status == ReviewCampaignStatus.Open.ToString())
             {
                 throw ErrorHelper.BadRequest("Cannot delete active Review Campaign!");
+            }
+            var oldSlots = await _unitOfWork.ReviewSlots
+                    .FindAsync(x => x.CampaignId == id);
+
+            if (oldSlots.Any())
+            {
+                await _unitOfWork.ReviewSlots.HardRemoveRange(oldSlots);
+                await _unitOfWork.SaveChangesAsync();
             }
             await _unitOfWork.ReviewCampaigns.SoftRemove(reviewCampaign);
             await _unitOfWork.SaveChangesAsync();
@@ -151,13 +190,12 @@ namespace Session.Application.Services
         {
             var slots = new List<ReviewSlot>();
 
-            var startDate = DateOnly.FromDateTime(campaign.StartTime);
-            var endDate = DateOnly.FromDateTime(campaign.EndTime);
+            //var startDate = DateOnly.FromDateTime(campaign.StartTime);
+            //var endDate = DateOnly.FromDateTime(campaign.EndTime);
 
-            for (var date = startDate; date <= endDate; date = date.AddDays(1))
+            for (var date = campaign.StartTime.Date; date <= campaign.EndTime.Date; date = date.AddDays(1))
             {
-                var dayOfWeek = date.ToDateTime(TimeOnly.MinValue).DayOfWeek;
-
+                var dayOfWeek = date.DayOfWeek;
                 if (dayOfWeek == DayOfWeek.Sunday)
                 {
                     continue;
@@ -171,8 +209,8 @@ namespace Session.Application.Services
                         CampaignId = campaign.Id,
                         ReviewDate = date,
                         SlotNumber = slot.SlotNumber,
-                        StartTime = slot.Start,
-                        EndTime = slot.End,
+                        StartTime = date.Add(slot.Start.ToTimeSpan()),
+                        EndTime = date.Add(slot.End.ToTimeSpan()),
                         Room = string.Empty,
                         MaxCapacity = 30
                     });
@@ -211,6 +249,21 @@ namespace Session.Application.Services
                     Room = slot.Room,
                     MaxCapacity = slot.MaxCapacity
                 }).ToList() ?? new List<ReviewSlotDto>()
+            };
+        }
+
+        private ReviewSlotDto ToReviewSlotDto(ReviewSlot reviewSlot)
+        {
+            return new ReviewSlotDto
+            {
+                Id = reviewSlot.Id,
+                CampaignId = reviewSlot.CampaignId,
+                ReviewDate = reviewSlot.ReviewDate,
+                SlotNumber = reviewSlot.SlotNumber,
+                StartTime = reviewSlot.StartTime,
+                EndTime = reviewSlot.EndTime,
+                Room = reviewSlot.Room,
+                MaxCapacity = reviewSlot.MaxCapacity
             };
         }
     }

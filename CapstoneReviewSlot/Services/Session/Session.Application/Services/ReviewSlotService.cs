@@ -27,7 +27,12 @@ namespace Session.Application.Services
 
         public async Task<List<ReviewSlotDto>> GetReviewSlotsByDate(DateOnly date)
         {
-            var reviewSlots = await _unitOfWork.ReviewSlots.GetAllAsync(rs => rs.ReviewDate == date);
+            var start = date.ToDateTime(TimeOnly.MinValue);
+            var end = start.AddDays(1);
+
+            var reviewSlots = await _unitOfWork.ReviewSlots
+                .FindAsync(rs => rs.ReviewDate >= start && rs.ReviewDate < end);
+
             return reviewSlots.Select(ToReviewSlotDto).ToList();
         }
 
