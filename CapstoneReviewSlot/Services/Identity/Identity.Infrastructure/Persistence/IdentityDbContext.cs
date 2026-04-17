@@ -1,7 +1,6 @@
-﻿using Entities;
+using Entities;
 using Identity.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace Identity.Infrastructure.Persistence;
 
@@ -13,6 +12,7 @@ public class IdentityDbContext : DbContext
     }
 
     public DbSet<User> Users => Set<User>();
+    public DbSet<Lecturer> Lecturers => Set<Lecturer>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
