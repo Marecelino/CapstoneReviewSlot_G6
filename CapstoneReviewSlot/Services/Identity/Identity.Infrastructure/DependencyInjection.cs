@@ -1,8 +1,10 @@
 using Identity.Application.Abstractions.Persistence;
 using Identity.Application.Abstractions.Security;
+using Identity.Application.Abstractions.Services;
 using Identity.Infrastructure.Persistence;
 using Identity.Infrastructure.Persistence.Repositories;
 using Identity.Infrastructure.Security;
+using Identity.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,10 +28,13 @@ public static class DependencyInjection
         // Repositories
         services.AddScoped<IUserRepository,     UserRepository>();
         services.AddScoped<ILecturerRepository, LecturerRepository>();
+        services.AddScoped<IPasswordResetOtpRepository, PasswordResetOtpRepository>();
 
         // Security
         services.AddScoped<IPasswordHasherService, PasswordHasherService>();
         services.AddScoped<IJwtTokenService,       JwtTokenService>();
+        services.Configure<SmtpSettings>(configuration.GetSection("Smtp"));
+        services.AddScoped<IEmailService, SmtpEmailService>();
 
         return services;
     }
