@@ -1,11 +1,12 @@
+using Identity.Domain.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Session.Application.DTOs;
-using Session.Application.Features.Queries.GetActiveCampaigns;
-using Session.Application.Features.Queries.GetSlotsByCampaign;
 using Session.Application.Features.Commands.CreateCampaign;
 using Session.Application.Features.Commands.CreateSlots;
+using Session.Application.Features.Queries.GetActiveCampaigns;
+using Session.Application.Features.Queries.GetSlotsByCampaign;
 
 namespace Session.Api.Controllers;
 
@@ -37,7 +38,7 @@ public class CampaignsController : ControllerBase
 
     /// <summary>Tạo campaign mới — chỉ Admin/Manager</summary>
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = SystemRoles.Manager)]
     [ProducesResponseType(typeof(ReviewCampaignDto), 201)]
     public async Task<IActionResult> Create([FromBody] CreateCampaignCommand command, CancellationToken ct)
     {
@@ -47,7 +48,7 @@ public class CampaignsController : ControllerBase
 
     /// <summary>Tạo batch slots cho campaign — chỉ Admin/Manager</summary>
     [HttpPost("{campaignId:guid}/slots")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = SystemRoles.Manager)]
     [ProducesResponseType(typeof(IEnumerable<ReviewSlotDto>), 201)]
     public async Task<IActionResult> CreateSlots(
         Guid campaignId, [FromBody] CreateSlotsCommand command, CancellationToken ct)
