@@ -1,17 +1,134 @@
 version: "3.8"
 
 services:
+  # API Gateway
   gateway:
     build:
       context: .
-      dockerfile: ApiGateway/CapstoneReviewSlot.Gateway/Dockerfile
+      dockerfile: Services/Gateway/Dockerfile
     ports:
       - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - IDENTITY_SERVICE_URL=http://identity:80
+      - SESSION_SERVICE_URL=http://session:80
+      - AVAILABILITY_SERVICE_URL=http://availability:80
+      - REGISTRATION_SERVICE_URL=http://registration:80
+      - ASSIGNMENT_SERVICE_URL=http://assignment:80
+      - REPORT_SERVICE_URL=http://report:80
+    depends_on:
+      - identity
+      - session
+      - availability
+      - registration
+      - assignment
+      - report
 
+  # Identity Service
+  identity:
+    build:
+      context: .
+      dockerfile: Services/Identity/Identity.Api/Dockerfile
+    ports:
+      - "5044:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__IdentityDb=${IDENTITY_DB_CONNECTION}
+      - Jwt__Key=${JWT_SECRET}
+      - Jwt__Issuer=${JWT_ISSUER}
+      - Jwt__Audience=${JWT_AUDIENCE}
+    depends_on:
+      - sqlserver
+
+  # Session Service
+  session:
+    build:
+      context: .
+      dockerfile: Services/Session/Session.Api/Dockerfile
+    ports:
+      - "5181:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__SessionDb=${SESSION_DB_CONNECTION}
+      - Jwt__Key=${JWT_SECRET}
+      - Jwt__Issuer=${JWT_ISSUER}
+      - Jwt__Audience=${JWT_AUDIENCE}
+    depends_on:
+      - sqlserver
+
+  # Availability Service
+  availability:
+    build:
+      context: .
+      dockerfile: Services/Availability/Availability.Api/Dockerfile
+    ports:
+      - "5068:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__AvailabilityDb=${AVAILABILITY_DB_CONNECTION}
+      - Jwt__Key=${JWT_SECRET}
+      - Jwt__Issuer=${JWT_ISSUER}
+      - Jwt__Audience=${JWT_AUDIENCE}
+    depends_on:
+      - sqlserver
+
+  # Assignment Service
+  assignment:
+    build:
+      context: .
+      dockerfile: Services/Assignment/Assignment.Api/Dockerfile
+    ports:
+      - "5139:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__AssignmentDb=${ASSIGNMENT_DB_CONNECTION}
+      - Jwt__Key=${JWT_SECRET}
+      - Jwt__Issuer=${JWT_ISSUER}
+      - Jwt__Audience=${JWT_AUDIENCE}
+    depends_on:
+      - sqlserver
+
+  # Registration Service
+  registration:
+    build:
+      context: .
+      dockerfile: Services/Registration/Registration.Api/Dockerfile
+    ports:
+      - "5194:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__RegistrationDb=${REGISTRATION_DB_CONNECTION}
+      - Jwt__Key=${JWT_SECRET}
+      - Jwt__Issuer=${JWT_ISSUER}
+      - Jwt__Audience=${JWT_AUDIENCE}
+    depends_on:
+      - sqlserver
+
+  # Report Service
+  report:
+    build:
+      context: .
+      dockerfile: Services/Report/Report.Api/Dockerfile
+    ports:
+      - "51317:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - Jwt__Key=${JWT_SECRET}
+      - Jwt__Issuer=${JWT_ISSUER}
+      - Jwt__Audience=${JWT_AUDIENCE}
+    depends_on:
+      - assignment
+
+  # SQL Server
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       SA_PASSWORD: ${DB_PASSWORD}
-      ACCEPT_EULA: "Y"
+      ACCEPT_EULA: Y
     ports:
       - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
+volumes:
+  sqlserver_data:

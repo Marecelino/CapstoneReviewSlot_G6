@@ -8,7 +8,7 @@ namespace Session.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly SessionDbContext _dbContext;
+        public readonly SessionDbContext _dbContext;
         private IDbContextTransaction? _transaction;
 
         public UnitOfWork(SessionDbContext dbContext,

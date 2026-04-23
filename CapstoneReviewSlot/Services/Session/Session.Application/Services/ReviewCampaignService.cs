@@ -1,4 +1,4 @@
-﻿using Session.Application.Interfaces;
+using Session.Application.Interfaces;
 using Session.Application.Ultils;
 using Session.Domain.DTOs;
 using Session.Domain.Entities;
@@ -190,10 +190,10 @@ namespace Session.Application.Services
         {
             var slots = new List<ReviewSlot>();
 
-            //var startDate = DateOnly.FromDateTime(campaign.StartTime);
-            //var endDate = DateOnly.FromDateTime(campaign.EndTime);
+            var startDate = DateOnly.FromDateTime(campaign.StartTime);
+            var endDate = DateOnly.FromDateTime(campaign.EndTime);
 
-            for (var date = campaign.StartTime.Date; date <= campaign.EndTime.Date; date = date.AddDays(1))
+            for (var date = startDate; date <= endDate; date = date.AddDays(1))
             {
                 var dayOfWeek = date.DayOfWeek;
                 if (dayOfWeek == DayOfWeek.Sunday)
@@ -209,8 +209,8 @@ namespace Session.Application.Services
                         CampaignId = campaign.Id,
                         ReviewDate = date,
                         SlotNumber = slot.SlotNumber,
-                        StartTime = date.Add(slot.Start.ToTimeSpan()),
-                        EndTime = date.Add(slot.End.ToTimeSpan()),
+                        StartTime = slot.Start,
+                        EndTime = slot.End,
                         Room = string.Empty,
                         MaxCapacity = 30
                     });

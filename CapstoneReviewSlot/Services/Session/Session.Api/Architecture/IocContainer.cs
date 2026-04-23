@@ -1,22 +1,25 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Session.Application.Interfaces;
 using Session.Application.Services;
 using Session.Application.Ultils;
+using Session.Domain.Interfaces;
 using Session.Infrastructure;
 using Session.Infrastructure.Common;
 using Session.Infrastructure.Interfaces;
 using Session.Infrastructure.Persistence;
 using Session.Infrastructure.Repositories;
+using IdentityDbContext = Identity.Infrastructure.Persistence.IdentityDbContext;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
-using SessionCoreUnitOfWork = Session.Infrastructure.UnitOfWork;
 using DomainUnitOfWork = Session.Domain.Interfaces.IUnitOfWork;
 using RepositoryUnitOfWork = Session.Infrastructure.Repositories.UnitOfWork;
+using InfraUnitOfWork = Session.Infrastructure.Interfaces.IUnitOfWork;
+using UnitOfWorkAdapter = Session.Infrastructure.Repositories.UnitOfWorkAdapter;
 namespace Session.Api.Architecture
 {
     public static class IocContainer
@@ -45,16 +48,25 @@ namespace Session.Api.Architecture
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            // For services using Session.Infrastructure.Interfaces.IUnitOfWork
-            services.AddScoped<Session.Infrastructure.Interfaces.IUnitOfWork, SessionCoreUnitOfWork>();
-
             // For MediatR handlers using Session.Domain.Interfaces.IUnitOfWork
             services.AddScoped<DomainUnitOfWork, RepositoryUnitOfWork>();
+
+            // Bridge old and new IUnitOfWork — ReviewCampaignService uses Infra IUnitOfWork
+            services.AddScoped<InfraUnitOfWork>(sp =>
+            {
+                var inner = (RepositoryUnitOfWork)sp.GetRequiredService<DomainUnitOfWork>();
+                return new UnitOfWorkAdapter(inner);
+            });
 
             services.AddScoped<ICurrentTime, CurrentTime>();
 
             services.AddScoped<IReviewCampaignService, ReviewCampaignService>();
             services.AddScoped<IReviewSlotService, ReviewSlotService>();
+
+            // CapstoneGroup services
+            services.AddScoped<ICapstoneGroupService, CapstoneGroupService>();
+            services.AddScoped<IExcelImportService, ExcelImportService>();
+            services.AddScoped<ILecturerNameMapper, LecturerNameMapper>();
 
             return services;
         }
@@ -67,20 +79,24 @@ namespace Session.Api.Architecture
                 .AddEnvironmentVariables()
                 .Build();
 
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            var connectionString = configuration.GetConnectionString("SessionDb");
 
             services.AddDbContext<SessionDbContext>(options =>
                 options.UseSqlServer(connectionString, sql =>
                 {
                     sql.MigrationsAssembly(typeof(SessionDbContext).Assembly.FullName);
-                    sql.CommandTimeout(300); // Cấu hình thời gian timeout truy vấn (tính bằng giây)
-                    sql.EnableRetryOnFailure(
-                        5,
-                        TimeSpan.FromSeconds(10),
-                        null
-                    );
+                    sql.CommandTimeout(300);
+                    sql.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
                 })
             );
+
+            // Share IdentityDbContext for lecturer name resolution
+            services.AddDbContext<IdentityDbContext>(options =>
+                options.UseSqlServer(connectionString, sql =>
+                {
+                    sql.CommandTimeout(60);
+                    sql.EnableRetryOnFailure(3, TimeSpan.FromSeconds(5), null);
+                }));
 
             return services;
         }

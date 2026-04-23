@@ -61,13 +61,18 @@ public class ReviewSlotRepository : IReviewSlotRepository
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly SessionDbContext _ctx;
+    public readonly SessionDbContext _dbContext;
     private ReviewCampaignRepository? _campaigns;
     private ReviewSlotRepository? _slots;
+    private CapstoneGroupRepository? _groups;
+    private CapstoneGroupMemberRepository? _members;
 
-    public UnitOfWork(SessionDbContext ctx) => _ctx = ctx;
+    public UnitOfWork(SessionDbContext ctx) => _dbContext = ctx;
 
-    public IReviewCampaignRepository Campaigns => _campaigns ??= new ReviewCampaignRepository(_ctx);
-    public IReviewSlotRepository Slots => _slots ??= new ReviewSlotRepository(_ctx);
-    public async Task<int> SaveChangesAsync(CancellationToken ct = default) => await _ctx.SaveChangesAsync(ct);
+    public IReviewCampaignRepository Campaigns => _campaigns ??= new ReviewCampaignRepository(_dbContext);
+    public IReviewSlotRepository Slots => _slots ??= new ReviewSlotRepository(_dbContext);
+    public ICapstoneGroupRepository CapstoneGroups => _groups ??= new CapstoneGroupRepository(_dbContext);
+    public ICapstoneGroupMemberRepository CapstoneGroupMembers => _members ??= new CapstoneGroupMemberRepository(_dbContext);
+
+    public async Task<int> SaveChangesAsync(CancellationToken ct = default) => await _dbContext.SaveChangesAsync(ct);
 }

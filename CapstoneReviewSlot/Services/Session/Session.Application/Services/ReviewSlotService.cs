@@ -1,4 +1,4 @@
-﻿using Session.Application.Interfaces;
+using Session.Application.Interfaces;
 using Session.Application.Ultils;
 using Session.Domain.DTOs;
 using Session.Domain.Entities;
@@ -27,11 +27,8 @@ namespace Session.Application.Services
 
         public async Task<List<ReviewSlotDto>> GetReviewSlotsByDate(DateOnly date)
         {
-            var start = date.ToDateTime(TimeOnly.MinValue);
-            var end = start.AddDays(1);
-
             var reviewSlots = await _unitOfWork.ReviewSlots
-                .FindAsync(rs => rs.ReviewDate >= start && rs.ReviewDate < end);
+                .FindAsync(rs => rs.ReviewDate == date);
 
             return reviewSlots.Select(ToReviewSlotDto).ToList();
         }
@@ -60,19 +57,17 @@ namespace Session.Application.Services
             return true;
         }
 
-        private ReviewSlotDto ToReviewSlotDto(ReviewSlot reviewSlot)
+        private static ReviewSlotDto ToReviewSlotDto(ReviewSlot reviewSlot)
         {
-            return new ReviewSlotDto
-            {
-                Id = reviewSlot.Id,
-                CampaignId = reviewSlot.CampaignId,
-                ReviewDate = reviewSlot.ReviewDate,
-                SlotNumber = reviewSlot.SlotNumber,
-                StartTime = reviewSlot.StartTime,
-                EndTime = reviewSlot.EndTime,
-                Room = reviewSlot.Room,
-                MaxCapacity = reviewSlot.MaxCapacity
-            };
+            return new ReviewSlotDto(
+                reviewSlot.Id,
+                reviewSlot.CampaignId,
+                reviewSlot.ReviewDate,
+                reviewSlot.SlotNumber,
+                reviewSlot.StartTime,
+                reviewSlot.EndTime,
+                reviewSlot.Room,
+                reviewSlot.MaxCapacity);
         }
     }
 }

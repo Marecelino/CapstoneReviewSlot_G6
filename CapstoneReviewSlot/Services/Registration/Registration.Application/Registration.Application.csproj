@@ -1,8 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <ProjectReference Include="..\Registration.Domain\Registration.Domain.csproj" />
     <ProjectReference Include="..\..\..\Shared\CapstoneReviewSlot.Shared\CapstoneReviewSlot.Shared.csproj" />
+    <ProjectReference Include="..\..\..\GrpcContract\GrpcContract.csproj" />
   </ItemGroup>
 
   <ItemGroup>
