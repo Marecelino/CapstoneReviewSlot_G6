@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   # API Gateway
   gateway:
@@ -7,9 +5,9 @@ services:
       context: .
       dockerfile: Services/Gateway/Dockerfile
     ports:
-      - "5000:80"
+      - "5000:5000"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
       - IDENTITY_SERVICE_URL=http://identity:80
       - SESSION_SERVICE_URL=http://session:80
       - AVAILABILITY_SERVICE_URL=http://availability:80
@@ -32,7 +30,8 @@ services:
     ports:
       - "5044:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
       - ConnectionStrings__IdentityDb=${IDENTITY_DB_CONNECTION}
       - Jwt__Key=${JWT_SECRET}
       - Jwt__Issuer=${JWT_ISSUER}
@@ -48,7 +47,8 @@ services:
     ports:
       - "5181:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
       - ConnectionStrings__SessionDb=${SESSION_DB_CONNECTION}
       - Jwt__Key=${JWT_SECRET}
       - Jwt__Issuer=${JWT_ISSUER}
@@ -64,7 +64,8 @@ services:
     ports:
       - "5068:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
       - ConnectionStrings__AvailabilityDb=${AVAILABILITY_DB_CONNECTION}
       - Jwt__Key=${JWT_SECRET}
       - Jwt__Issuer=${JWT_ISSUER}
@@ -80,7 +81,8 @@ services:
     ports:
       - "5139:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
       - ConnectionStrings__AssignmentDb=${ASSIGNMENT_DB_CONNECTION}
       - Jwt__Key=${JWT_SECRET}
       - Jwt__Issuer=${JWT_ISSUER}
@@ -96,7 +98,8 @@ services:
     ports:
       - "5194:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
       - ConnectionStrings__RegistrationDb=${REGISTRATION_DB_CONNECTION}
       - Jwt__Key=${JWT_SECRET}
       - Jwt__Issuer=${JWT_ISSUER}
@@ -112,7 +115,8 @@ services:
     ports:
       - "51317:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
       - Jwt__Key=${JWT_SECRET}
       - Jwt__Issuer=${JWT_ISSUER}
       - Jwt__Audience=${JWT_AUDIENCE}

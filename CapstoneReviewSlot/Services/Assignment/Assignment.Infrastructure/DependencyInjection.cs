@@ -3,6 +3,7 @@ using Assignment.Application.Services;
 using Assignment.Domain.Interfaces.Repositories;
 using Assignment.Domain.Interfaces.Services;
 using Assignment.Infrastructure.Persistence;
+using Assignment.Infrastructure.Repositories;
 using Assignment.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

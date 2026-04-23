@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Report.Domain\Report.Domain.csproj" />
+    <ProjectReference Include="..\Report.Application\Report.Application.csproj" />
     <ProjectReference Include="..\..\..\Shared\CapstoneReviewSlot.Shared\CapstoneReviewSlot.Shared.csproj" />
     <ProjectReference Include="..\..\..\GrpcContract\GrpcContract.csproj" />
   </ItemGroup>

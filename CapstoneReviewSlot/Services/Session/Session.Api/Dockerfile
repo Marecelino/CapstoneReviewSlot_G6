@@ -5,19 +5,19 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY ["CapstoneReviewSlot/Services/Session/Session.Api/Session.Api.csproj", "Services/Session/Session.Api/"]
-COPY ["CapstoneReviewSlot/Services/Session/Session.Application/Session.Application.csproj", "Services/Session/Session.Application/"]
-COPY ["CapstoneReviewSlot/Services/Session/Session.Domain/Session.Domain.csproj", "Services/Session/Session.Domain/"]
-COPY ["CapstoneReviewSlot/Services/Session/Session.Infrastructure/Session.Infrastructure.csproj", "Services/Session/Session.Infrastructure/"]
-COPY ["CapstoneReviewSlot/Services/Identity/Identity.Infrastructure/Identity.Infrastructure.csproj", "Services/Identity/Identity.Infrastructure/"]
-COPY ["CapstoneReviewSlot/Shared/CapstoneReviewSlot.Shared/CapstoneReviewSlot.Shared.csproj", "Shared/CapstoneReviewSlot.Shared/"]
-COPY ["CapstoneReviewSlot/GrpcContract/GrpcContract.csproj", "GrpcContract/"]
+COPY ["Services/Session/Session.Api/Session.Api.csproj", "Services/Session/Session.Api/"]
+COPY ["Services/Session/Session.Application/Session.Application.csproj", "Services/Session/Session.Application/"]
+COPY ["Services/Session/Session.Domain/Session.Domain.csproj", "Services/Session/Session.Domain/"]
+COPY ["Services/Session/Session.Infrastructure/Session.Infrastructure.csproj", "Services/Session/Session.Infrastructure/"]
+COPY ["Services/Identity/Identity.Infrastructure/Identity.Infrastructure.csproj", "Services/Identity/Identity.Infrastructure/"]
+COPY ["Shared/CapstoneReviewSlot.Shared/CapstoneReviewSlot.Shared.csproj", "Shared/CapstoneReviewSlot.Shared/"]
+COPY ["GrpcContract/GrpcContract.csproj", "GrpcContract/"]
 RUN dotnet restore "Services/Session/Session.Api/Session.Api.csproj"
 
-COPY CapstoneReviewSlot/ .
+COPY Services/ Services/
+COPY Shared/ Shared/
+COPY GrpcContract/ GrpcContract/
 WORKDIR "/src/Services/Session/Session.Api"
-RUN dotnet build "Session.Api.csproj" -c Release -o /app/build
-
 RUN dotnet publish "Session.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final

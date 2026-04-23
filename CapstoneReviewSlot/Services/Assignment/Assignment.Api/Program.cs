@@ -2,6 +2,7 @@ using Assignment.Application;
 using Assignment.Application.Services;
 using Assignment.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
