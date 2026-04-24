@@ -74,7 +74,7 @@ public class AvailabilityController : ControllerBase
     /// [Admin] Xem tất cả giảng viên đã đăng ký một slot cụ thể
     /// </summary>
     [HttpGet("slots/{slotId:guid}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Manager")]
     [ProducesResponseType(typeof(IEnumerable<LecturerAvailabilityDto>), 200)]
     public async Task<IActionResult> GetBySlot(Guid slotId, CancellationToken ct)
     {
