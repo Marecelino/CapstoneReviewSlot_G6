@@ -65,6 +65,7 @@ namespace Identity.Api.Controllers
 
         //[Authorize(Roles = SystemRoles.Admin)]
         [AllowAnonymous]
+
         [HttpPost("create-lecturer-account")]
         public async Task<IActionResult> CreateLecturerAccount(CreateLecturerAccountRequest request, CancellationToken cancellationToken)
         {
