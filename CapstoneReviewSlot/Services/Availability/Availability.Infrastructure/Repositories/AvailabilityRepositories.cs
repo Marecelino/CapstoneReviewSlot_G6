@@ -25,6 +25,11 @@ public class LecturerAvailabilityRepository : ILecturerAvailabilityRepository
                      .OrderBy(a => a.ReviewSlotId)
                      .ToListAsync(ct);
 
+    public async Task<IEnumerable<LecturerAvailability>> GetAllAsync(CancellationToken ct = default)
+        => await _ctx.LecturerAvailabilities
+                     .OrderBy(a => a.ReviewSlotId)
+                     .ToListAsync(ct);
+
     public async Task<IEnumerable<LecturerAvailability>> GetBySlotIdAsync(
         Guid slotId, CancellationToken ct = default)
         => await _ctx.LecturerAvailabilities

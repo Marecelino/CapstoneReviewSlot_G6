@@ -1,6 +1,7 @@
 using Availability.Application.DTOs;
 using Availability.Application.Features.Commands.CancelAvailability;
 using Availability.Application.Features.Commands.RegisterAvailability;
+using Availability.Application.Features.Queries.GetAllAvailability;
 using Availability.Application.Features.Queries.GetMyAvailability;
 using Availability.Application.Features.Queries.GetSlotAvailability;
 using MediatR;
@@ -79,6 +80,18 @@ public class AvailabilityController : ControllerBase
     public async Task<IActionResult> GetBySlot(Guid slotId, CancellationToken ct)
     {
         var result = await _mediator.Send(new GetSlotAvailabilityQuery(slotId), ct);
+        return Ok(result);
+    }
+
+    /// <summary>
+    /// [Admin] Xem tất cả giảng viên đã đăng ký một slot cụ thể
+    /// </summary>
+    [HttpGet("lecturers")]
+    [Authorize(Roles = "Manager")]
+    [ProducesResponseType(typeof(IEnumerable<LecturerAvailabilityDto>), 200)]
+    public async Task<IActionResult> GetAllAsync(CancellationToken ct)
+    {
+        var result = await _mediator.Send(new GetAllAvailabilityQuery(), ct);
         return Ok(result);
     }
 
