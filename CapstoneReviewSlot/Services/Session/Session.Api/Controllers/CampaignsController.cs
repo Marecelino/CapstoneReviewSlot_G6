@@ -37,7 +37,7 @@ public class CampaignsController : ControllerBase
 
     /// <summary>Tạo campaign mới — chỉ Admin/Manager</summary>
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Manager")]
     [ProducesResponseType(typeof(ReviewCampaignDto), 201)]
     public async Task<IActionResult> Create([FromBody] CreateCampaignCommand command, CancellationToken ct)
     {
@@ -47,7 +47,7 @@ public class CampaignsController : ControllerBase
 
     /// <summary>Tạo batch slots cho campaign — chỉ Admin/Manager</summary>
     [HttpPost("{campaignId:guid}/slots")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Manager")]
     [ProducesResponseType(typeof(IEnumerable<ReviewSlotDto>), 201)]
     public async Task<IActionResult> CreateSlots(
         Guid campaignId, [FromBody] CreateSlotsCommand command, CancellationToken ct)

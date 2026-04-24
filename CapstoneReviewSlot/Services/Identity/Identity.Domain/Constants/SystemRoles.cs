@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,7 @@ namespace Identity.Domain.Constants
 {
     public static class SystemRoles
     {
-        public const string Admin = "Admin";
+        public const string Manager = "Manager";
         public const string Lecturer = "Lecturer";
         public const string Student = "Student";
     }

@@ -28,6 +28,7 @@ public static class DependencyInjection
         services.AddScoped<ILecturerRepository, LecturerRepository>();
 
         // Security
+        services.AddScoped<Identity.Application.Interfaces.IPasswordHasher, Identity.Infrastructure.Services.BcryptPasswordHasher>();
         services.AddScoped<IPasswordHasherService, PasswordHasherService>();
         services.AddScoped<IJwtTokenService,       JwtTokenService>();
 

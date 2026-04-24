@@ -20,7 +20,7 @@ public class GroupsController : ControllerBase
 
     /// <summary>Import groups + students from SE_CapstoneProject FA25 Excel file.</summary>
     [HttpPost("campaign/{campaignId:guid}/import")]
-    [Authorize(Roles = "Admin,Manager")]
+    [Authorize(Roles = "Admin,Manager,Lecturer")]
     [ProducesResponseType(typeof(ImportResultDto), 200)]
     public async Task<IActionResult> ImportGroups(
         Guid campaignId,

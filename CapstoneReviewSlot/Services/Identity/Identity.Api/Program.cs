@@ -1,4 +1,6 @@
 using Identity.Application;
+using Identity.Domain.Entities;
+using Identity.Domain.Enums;
 using Identity.Infrastructure;
 using Identity.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -47,13 +49,67 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<IdentityDbContext>();
     db.Database.Migrate();
+
+    // IMPORTANT: Use IPasswordHasherService (ASP.NET Identity PasswordHasher)
+    // NOT IPasswordHasher (BCrypt) — AuthService.LoginAsync uses IPasswordHasherService,
+    // so seeded passwords MUST use the same hasher to be verifiable.
+    var passwordHasher = scope.ServiceProvider.GetRequiredService<Identity.Application.Abstractions.Security.IPasswordHasherService>();
+
+    // --- Seed Admin account ---
+    var existingAdmin = db.Users.FirstOrDefault(u => u.Email == "admin@admin.com");
+    if (existingAdmin != null)
+    {
+        // Re-hash in case it was hashed with the wrong hasher (BCrypt vs ASP.NET Identity)
+        existingAdmin.PasswordHash = passwordHasher.HashPassword(existingAdmin, "Admin@123");
+        existingAdmin.Role = UserRole.Manager;
+        db.SaveChanges();
+    }
+    else
+    {
+        var admin = User.Create("System Admin", "admin@admin.com", "", UserRole.Manager);
+        admin.PasswordHash = passwordHasher.HashPassword(admin, "Admin@123");
+        db.Users.Add(admin);
+        db.SaveChanges();
+    }
+
+    // --- Seed Lecturer account ---
+    var existingManager = db.Users.FirstOrDefault(u => u.Email == "manager@manager.com");
+    if (existingManager != null)
+    {
+        existingManager.PasswordHash = passwordHasher.HashPassword(existingManager, "Manager@123");
+        existingManager.Role = UserRole.Lecturer;
+        db.SaveChanges();
+
+        if (!db.Lecturers.Any(l => l.UserId == existingManager.Id))
+        {
+            var lecturer = Lecturer.Create(existingManager.Id, "MGR001", "Management");
+            db.Lecturers.Add(lecturer);
+            db.SaveChanges();
+        }
+    }
+    else
+    {
+        var manager = User.Create("System Manager", "manager@manager.com", "", UserRole.Lecturer);
+        manager.PasswordHash = passwordHasher.HashPassword(manager, "Manager@123");
+        db.Users.Add(manager);
+        db.SaveChanges();
+
+        if (!db.Lecturers.Any(l => l.UserId == manager.Id))
+        {
+            var lecturer = Lecturer.Create(manager.Id, "MGR001", "Management");
+            db.Lecturers.Add(lecturer);
+            db.SaveChanges();
+        }
+    }
+    // --- Seed List of Lecturers ---
+    Identity.Api.Extensions.DataSeeder.SeedLecturers(db, passwordHasher);
 }
 
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
 
 // app.UseHttpsRedirection();
 app.UseAuthentication();
