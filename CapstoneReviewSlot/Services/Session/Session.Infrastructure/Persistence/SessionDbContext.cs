@@ -1,4 +1,4 @@
-﻿using Entities;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 using Session.Domain.Entities;
 
@@ -13,6 +13,8 @@ namespace Session.Infrastructure.Persistence
 
         public DbSet<ReviewCampaign> ReviewCampaigns => Set<ReviewCampaign>();
         public DbSet<ReviewSlot> ReviewSlots => Set<ReviewSlot>();
+        public DbSet<CapstoneGroup> CapstoneGroups => Set<CapstoneGroup>();
+        public DbSet<CapstoneGroupMember> CapstoneGroupMembers => Set<CapstoneGroupMember>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,5 +51,4 @@ namespace Session.Infrastructure.Persistence
             return base.SaveChangesAsync(cancellationToken);
         }
     }
-
 }

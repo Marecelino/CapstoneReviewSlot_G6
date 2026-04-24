@@ -24,5 +24,29 @@ public interface IUnitOfWork
 {
     IReviewCampaignRepository Campaigns { get; }
     IReviewSlotRepository Slots { get; }
+    ICapstoneGroupRepository CapstoneGroups { get; }
+    ICapstoneGroupMemberRepository CapstoneGroupMembers { get; }
     Task<int> SaveChangesAsync(CancellationToken ct = default);
+}
+
+public interface ICapstoneGroupRepository
+{
+    Task<CapstoneGroup?> GetByIdAsync(Guid id, CancellationToken ct = default);
+    Task<CapstoneGroup?> GetByIdWithMembersAsync(Guid id, CancellationToken ct = default);
+    Task<IEnumerable<CapstoneGroup>> GetByCampaignIdAsync(Guid campaignId, CancellationToken ct = default);
+    Task<CapstoneGroup?> GetByGroupCodeAsync(string groupCode, CancellationToken ct = default);
+    Task AddAsync(CapstoneGroup group, CancellationToken ct = default);
+    Task AddRangeAsync(IEnumerable<CapstoneGroup> groups, CancellationToken ct = default);
+    Task UpdateAsync(CapstoneGroup group, CancellationToken ct = default);
+    Task<bool> ExistsAsync(Guid campaignId, string groupCode, CancellationToken ct = default);
+    Task<int> CountByCampaignAsync(Guid campaignId, CancellationToken ct = default);
+    Task SoftRemove(CapstoneGroup group, CancellationToken ct = default);
+}
+
+public interface ICapstoneGroupMemberRepository
+{
+    Task<IEnumerable<CapstoneGroupMember>> GetByGroupIdAsync(Guid groupId, CancellationToken ct = default);
+    Task<CapstoneGroupMember?> GetByMssvAsync(string mssv, CancellationToken ct = default);
+    Task AddAsync(CapstoneGroupMember member, CancellationToken ct = default);
+    Task AddRangeAsync(IEnumerable<CapstoneGroupMember> members, CancellationToken ct = default);
 }

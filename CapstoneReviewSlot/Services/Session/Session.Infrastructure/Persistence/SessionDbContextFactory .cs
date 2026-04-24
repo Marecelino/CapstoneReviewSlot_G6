@@ -18,12 +18,13 @@ namespace Session.Infrastructure.Persistence
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.Development.json", true)
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<SessionDbContext>();
 
             optionsBuilder.UseSqlServer(
-                configuration.GetConnectionString("DefaultConnection")
+                configuration.GetConnectionString("SessionDb")
             );
 
             return new SessionDbContext(optionsBuilder.Options);
