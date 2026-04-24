@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Assignment.Api.Controllers;
 
-[Route("api/assignment")]
+[Route("api/[controller]")]
 [ApiController]
 public class ManagerAssignmentController : ControllerBase
 {

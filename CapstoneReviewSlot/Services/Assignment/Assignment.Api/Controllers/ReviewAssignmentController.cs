@@ -1,6 +1,7 @@
-﻿using Assignment.Domain.Dtos;
+using Assignment.Domain.Dtos;
 using Assignment.Domain.Interfaces.Services;
 using Assignment.Domain.Ultils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Session.Application.Ultils;
 
@@ -8,6 +9,7 @@ namespace Assignment.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReviewAssignmentController : ControllerBase
     {
         private readonly IReviewAssignmentService _reviewAssignmentService;
@@ -82,6 +84,7 @@ namespace Assignment.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Create([FromBody] ReviewAssignmentRequest request)
         {
             try
@@ -98,6 +101,7 @@ namespace Assignment.Api.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Update([FromBody] ReviewAssignmentRequest request)
         {
             try
@@ -114,6 +118,7 @@ namespace Assignment.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(int id)
         {
             try
