@@ -200,5 +200,12 @@ namespace Session.Infrastructure.Repositories
         {
             return await _dbSet.AnyAsync(predicate);
         }
+
+        public async Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _dbSet
+                .Where(predicate)
+                .ToListAsync();
+        }
     }
 }

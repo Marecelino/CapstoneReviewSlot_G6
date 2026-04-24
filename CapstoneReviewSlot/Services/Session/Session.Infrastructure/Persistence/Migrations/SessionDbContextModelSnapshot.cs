@@ -22,6 +22,104 @@ namespace Session.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Session.Domain.Entities.CapstoneGroup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CapstoneGroupId");
+
+                    b.Property<Guid>("CampaignId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GroupCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("MentorLecturerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ProjectCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ProjectNameEn")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("ProjectNameVn")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("SupervisorJson")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("UpdatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampaignId");
+
+                    b.ToTable("CapstoneGroup", (string)null);
+                });
+
+            modelBuilder.Entity("Session.Domain.Entities.CapstoneGroupMember", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("MemberId");
+
+                    b.Property<Guid>("CapstoneGroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("StudentMssv")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("StudentName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("UpdatedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentMssv");
+
+                    b.HasIndex("CapstoneGroupId", "StudentMssv")
+                        .IsUnique();
+
+                    b.ToTable("CapstoneGroupMember", (string)null);
+                });
+
             modelBuilder.Entity("Session.Domain.Entities.ReviewCampaign", b =>
                 {
                     b.Property<Guid>("Id")
@@ -115,6 +213,28 @@ namespace Session.Infrastructure.Persistence.Migrations
                     b.ToTable("ReviewSlot", (string)null);
                 });
 
+            modelBuilder.Entity("Session.Domain.Entities.CapstoneGroup", b =>
+                {
+                    b.HasOne("Session.Domain.Entities.ReviewCampaign", "ReviewCampaign")
+                        .WithMany()
+                        .HasForeignKey("CampaignId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ReviewCampaign");
+                });
+
+            modelBuilder.Entity("Session.Domain.Entities.CapstoneGroupMember", b =>
+                {
+                    b.HasOne("Session.Domain.Entities.CapstoneGroup", "CapstoneGroup")
+                        .WithMany("Members")
+                        .HasForeignKey("CapstoneGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CapstoneGroup");
+                });
+
             modelBuilder.Entity("Session.Domain.Entities.ReviewSlot", b =>
                 {
                     b.HasOne("Session.Domain.Entities.ReviewCampaign", "ReviewCampaign")
@@ -124,6 +244,11 @@ namespace Session.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("ReviewCampaign");
+                });
+
+            modelBuilder.Entity("Session.Domain.Entities.CapstoneGroup", b =>
+                {
+                    b.Navigation("Members");
                 });
 
             modelBuilder.Entity("Session.Domain.Entities.ReviewCampaign", b =>

@@ -1,6 +1,6 @@
 using Assignment.Application;
+using Assignment.Application.Services;
 using Assignment.Infrastructure;
-using Assignment.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -50,13 +50,31 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddBusinessRuleValidator();
+
+// Register HttpClientFactory for cross-service HTTP calls
+builder.Services.AddHttpClient("SessionService", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["SESSION_SERVICE_URL"] ?? "http://session:80");
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
+
+builder.Services.AddHttpClient("AvailabilityService", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["AVAILABILITY_SERVICE_URL"] ?? "http://availability:80");
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
+
+builder.Services.AddHttpClient("IdentityService", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["IDENTITY_SERVICE_URL"] ?? "http://identity:80");
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
 
 var jwtKey = builder.Configuration["Jwt:Key"]
              ?? throw new InvalidOperationException("Jwt:Key is not configured.");
-
 var jwtIssuer = builder.Configuration["Jwt:Issuer"]
                 ?? throw new InvalidOperationException("Jwt:Issuer is not configured.");
-
 var jwtAudience = builder.Configuration["Jwt:Audience"]
                   ?? throw new InvalidOperationException("Jwt:Audience is not configured.");
 
@@ -81,14 +99,15 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AssignmentDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<Assignment.Infrastructure.Persistence.AssignmentDbContext>();
     db.Database.Migrate();
 }
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
