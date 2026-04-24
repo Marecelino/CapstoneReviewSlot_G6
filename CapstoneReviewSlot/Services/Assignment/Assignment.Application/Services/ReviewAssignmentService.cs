@@ -5,7 +5,6 @@ using Assignment.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Assignment.Application.Services
@@ -13,10 +12,14 @@ namespace Assignment.Application.Services
     public class ReviewAssignmentService : IReviewAssignmentService
     {
         private readonly IReviewAssignmentRepository _repostory;
+        private readonly IReviewAssignmentReviewerRepository _reviewerRepository;
 
-        public ReviewAssignmentService(IReviewAssignmentRepository repostory)
+        public ReviewAssignmentService(
+            IReviewAssignmentRepository repostory,
+            IReviewAssignmentReviewerRepository reviewerRepository)
         {
             _repostory = repostory;
+            _reviewerRepository = reviewerRepository;
         }
 
         public async Task<ReviewAssignmentDto> AddAsync(ReviewAssignmentRequest assignment)
@@ -30,13 +33,11 @@ namespace Assignment.Application.Services
             var entity = await GetToEntityAsync(assignment);
             var created = await _repostory.AddAsync(entity);
 
-            return GetToDto(created);
+            return await GetToDtoAsync(created);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            // Current service contract uses int, while entity key is Guid.
-            // Use ReviewOrder as the deletion key to satisfy existing interface.
             var all = await _repostory.GetAllAsync(new ReviewAssignment());
             var assignment = all.FirstOrDefault(x => x.ReviewOrder == id);
 
@@ -51,13 +52,13 @@ namespace Assignment.Application.Services
         public async Task<List<ReviewAssignmentDto>> GetAllAsync()
         {
             var assignments = await _repostory.GetAllAsync(new ReviewAssignment());
-            return assignments.Select(GetToDto).ToList();
+            return await Task.WhenAll(assignments.Select(GetToDtoAsync)).ContinueWith(t => t.Result.ToList());
         }
 
         public async Task<List<ReviewAssignmentDto>> GetByGroupId(Guid groupId)
         {
             var assignments = await _repostory.GetByGroupId(groupId);
-            return assignments.Select(GetToDto).ToList();
+            return await Task.WhenAll(assignments.Select(GetToDtoAsync)).ContinueWith(t => t.Result.ToList());
         }
 
         public async Task<ReviewAssignmentDto> GetByIdAsync(Guid id)
@@ -68,13 +69,13 @@ namespace Assignment.Application.Services
                 throw new KeyNotFoundException("Review assignment not found.");
             }
 
-            return GetToDto(assignment);
+            return await GetToDtoAsync(assignment);
         }
 
         public async Task<List<ReviewAssignmentDto>> GetBySlotId(Guid slotId)
         {
             var assignments = await _repostory.GetBySlotId(slotId);
-            return assignments.Select(GetToDto).ToList();
+            return await Task.WhenAll(assignments.Select(GetToDtoAsync)).ContinueWith(t => t.Result.ToList());
         }
 
         public async Task<ReviewAssignmentDto> UpdateAsync(ReviewAssignmentRequest assignment)
@@ -92,7 +93,7 @@ namespace Assignment.Application.Services
             current.AssignedAt = DateTime.UtcNow;
 
             var updated = await _repostory.UpdateAsync(current);
-            return GetToDto(updated);
+            return await GetToDtoAsync(updated);
         }
 
         private async Task<ReviewAssignment> GetToEntityAsync(ReviewAssignmentRequest assignment)
@@ -111,8 +112,10 @@ namespace Assignment.Application.Services
             };
         }
 
-        private static ReviewAssignmentDto GetToDto(ReviewAssignment assignment)
+        private async Task<ReviewAssignmentDto> GetToDtoAsync(ReviewAssignment assignment)
         {
+            var reviewers = await _reviewerRepository.GetByReviewAssignmentIdAsync(assignment.Id);
+
             return new ReviewAssignmentDto
             {
                 Id = assignment.Id,
@@ -123,7 +126,13 @@ namespace Assignment.Application.Services
                 AssignedBy = assignment.AssignedBy,
                 AssignedAt = assignment.AssignedAt,
                 CreatedAtUtc = assignment.CreatedAtUtc,
-                UpdatedAtUtc = assignment.UpdatedAtUtc ?? assignment.CreatedAtUtc
+                UpdatedAtUtc = assignment.UpdatedAtUtc ?? assignment.CreatedAtUtc,
+                Reviewers = reviewers.Select(x => new ReviewAssignmentReviewerDto
+                {
+                    LecturerId = x.LecturerId,
+                    ReviewAssignmentId = x.ReviewAssignmentId,
+                    Role = x.Role
+                }).ToList()
             };
         }
     }

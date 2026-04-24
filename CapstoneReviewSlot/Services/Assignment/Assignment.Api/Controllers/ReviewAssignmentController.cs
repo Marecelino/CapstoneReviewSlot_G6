@@ -1,6 +1,7 @@
 ﻿using Assignment.Domain.Dtos;
 using Assignment.Domain.Interfaces.Services;
 using Assignment.Domain.Ultils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Session.Application.Ultils;
 
@@ -8,13 +9,21 @@ namespace Assignment.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReviewAssignmentController : ControllerBase
     {
         private readonly IReviewAssignmentService _reviewAssignmentService;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public ReviewAssignmentController(IReviewAssignmentService reviewAssignmentService)
+        public ReviewAssignmentController(
+            IReviewAssignmentService reviewAssignmentService,
+            IHttpClientFactory httpClientFactory,
+            IConfiguration configuration)
         {
             _reviewAssignmentService = reviewAssignmentService;
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -86,6 +95,21 @@ namespace Assignment.Api.Controllers
         {
             try
             {
+                var sessionApiBaseUrl = _configuration["ServiceEndpoints:SessionApi"]
+                    ?? throw new InvalidOperationException("ServiceEndpoints:SessionApi is not configured.");
+
+                var client = _httpClientFactory.CreateClient();
+                if (Request.Headers.TryGetValue("Authorization", out var authHeader))
+                {
+                    client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", authHeader.ToString());
+                }
+
+                var slotCheckResponse = await client.GetAsync($"{sessionApiBaseUrl}/api/ReviewSlot/{request.ReviewSlotId}");
+                if (!slotCheckResponse.IsSuccessStatusCode)
+                {
+                    return BadRequest(ApiResult<object>.Failure("400", "Review slot does not exist."));
+                }
+
                 var data = await _reviewAssignmentService.AddAsync(request);
                 return Ok(ApiResult<object>.Success(data, "201", "Create review assignment successfully."));
             }
