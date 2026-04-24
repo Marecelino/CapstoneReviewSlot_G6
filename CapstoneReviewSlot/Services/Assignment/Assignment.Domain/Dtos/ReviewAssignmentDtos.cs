@@ -1,9 +1,5 @@
-﻿using Assignment.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assignment.Domain.Dtos
 {
@@ -18,7 +14,9 @@ namespace Assignment.Domain.Dtos
         public DateTime AssignedAt { get; set; }
 
         public DateTime CreatedAtUtc { get; set; }
-        public DateTime UpdatedAtUtc { get;set; }
+        public DateTime UpdatedAtUtc { get; set; }
+
+        public List<ReviewAssignmentReviewerDto> Reviewers { get; set; } = new();
     }
 
     public class ReviewAssignmentRequest

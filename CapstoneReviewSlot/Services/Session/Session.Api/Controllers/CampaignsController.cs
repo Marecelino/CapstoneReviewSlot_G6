@@ -1,11 +1,12 @@
+using Identity.Domain.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Session.Application.DTOs;
-using Session.Application.Features.Queries.GetActiveCampaigns;
-using Session.Application.Features.Queries.GetSlotsByCampaign;
 using Session.Application.Features.Commands.CreateCampaign;
 using Session.Application.Features.Commands.CreateSlots;
+using Session.Application.Features.Queries.GetActiveCampaigns;
+using Session.Application.Features.Queries.GetSlotsByCampaign;
 
 namespace Session.Api.Controllers;
 

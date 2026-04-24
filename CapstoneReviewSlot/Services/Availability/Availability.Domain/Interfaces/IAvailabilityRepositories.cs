@@ -14,6 +14,7 @@ public interface ILecturerAvailabilityRepository
     Task UpdateAsync(LecturerAvailability entity, CancellationToken ct = default);
 
     Task DeleteAsync(LecturerAvailability entity, CancellationToken ct = default);
+    Task<IEnumerable<LecturerAvailability>> GetAllAsync(CancellationToken ct = default);
 }
 
 public interface IUnitOfWork
