@@ -52,6 +52,7 @@ public class PreferencesController : ControllerBase
 
     /// <summary>Get preferences for a capstone group.</summary>
     [HttpGet("group/{groupId:guid}")]
+    [Authorize(Roles = "Student,Admin,Manager")]
     [ProducesResponseType(typeof(List<StudentSlotPreferenceDto>), 200)]
     public async Task<IActionResult> GetByGroup(Guid groupId, CancellationToken ct)
     {
@@ -68,6 +69,7 @@ public class PreferencesController : ControllerBase
 
     /// <summary>Get preferences for a review slot.</summary>
     [HttpGet("slot/{slotId:guid}")]
+    [Authorize(Roles = "Student,Admin,Manager")]
     [ProducesResponseType(typeof(List<StudentSlotPreferenceDto>), 200)]
     public async Task<IActionResult> GetBySlot(Guid slotId, CancellationToken ct)
     {

@@ -37,5 +37,8 @@ public class LecturerConfiguration : IEntityTypeConfiguration<Lecturer>
                .HasForeignKey<Lecturer>(l => l.UserId)
                .HasPrincipalKey<User>(u => u.Id)
                .OnDelete(DeleteBehavior.Cascade);
+
+        // Fix Warning 10622: Add matching query filter for Lecturer since User has a query filter
+        builder.HasQueryFilter(l => !l.User.IsDeleted);
     }
 }

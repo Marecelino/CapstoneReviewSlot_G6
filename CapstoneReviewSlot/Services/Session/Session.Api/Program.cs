@@ -47,20 +47,20 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.UseCors("AllowFrontend");
-if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
-{
+// if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+// {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReviewCampaign API v1");
-        c.RoutePrefix = string.Empty;
+        // c.RoutePrefix = string.Empty;
 
         c.ConfigObject.AdditionalItems.Add("persistAuthorization", "true");
 
         c.InjectJavascript("/custom-swagger.js");
         c.InjectStylesheet("/custom-swagger.css");
     });
-}
+// }
 
 // hàm này để tự động migrate database khi chạy 
 // cho khỏi phải chạy lệnh update-database trong package manager console

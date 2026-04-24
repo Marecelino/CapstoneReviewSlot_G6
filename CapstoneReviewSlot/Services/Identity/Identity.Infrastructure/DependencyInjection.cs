@@ -31,6 +31,7 @@ public static class DependencyInjection
         services.AddScoped<IPasswordResetOtpRepository, PasswordResetOtpRepository>();
 
         // Security
+        services.AddScoped<Identity.Application.Interfaces.IPasswordHasher, Identity.Infrastructure.Services.BcryptPasswordHasher>();
         services.AddScoped<IPasswordHasherService, PasswordHasherService>();
         services.AddScoped<IJwtTokenService,       JwtTokenService>();
         services.Configure<SmtpSettings>(configuration.GetSection("Smtp"));

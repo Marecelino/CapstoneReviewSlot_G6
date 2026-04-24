@@ -28,30 +28,45 @@ public class LecturerNameMapper : ILecturerNameMapper
 
         var normalized = Normalize(fullName);
 
-        // Step 1: Try exact normalized match on FullName
+        // Step 1: Try exact match on FullName (SQL-safe)
         var lecturer = await _identityDb.Lecturers
             .Include(l => l.User)
-            .FirstOrDefaultAsync(l =>
-                l.User.FullName == fullName ||
-                Normalize(l.User.FullName) == normalized, ct);
+            .FirstOrDefaultAsync(l => l.User.FullName == fullName, ct);
 
         if (lecturer != null)
             return lecturer.LecturerId;
 
-        // Step 2: Try prefix match on LecturerCode (e.g., "DucDNM")
+        // Step 2: Try match on LecturerCode (SQL-safe)
         var codeMatch = await _identityDb.Lecturers
             .Include(l => l.User)
-            .FirstOrDefaultAsync(l => l.LecturerCode == normalized, ct);
+            .FirstOrDefaultAsync(l => l.LecturerCode == fullName, ct);
 
         if (codeMatch != null)
             return codeMatch.LecturerId;
 
-        // Step 3: Try contains match (partial name match)
-        var containsMatch = await _identityDb.Lecturers
+        // Step 3: Load all lecturers to memory for fuzzy matching
+        // (normalized/contains match cannot be translated to SQL)
+        var allLecturers = await _identityDb.Lecturers
             .Include(l => l.User)
-            .FirstOrDefaultAsync(l =>
-                Normalize(l.User.FullName).Contains(normalized) ||
-                normalized.Contains(Normalize(l.User.FullName)), ct);
+            .ToListAsync(ct);
+
+        // Step 3a: Normalized name match
+        var normalizedMatch = allLecturers.FirstOrDefault(l =>
+            Normalize(l.User.FullName) == normalized);
+        if (normalizedMatch != null)
+            return normalizedMatch.LecturerId;
+
+        // Step 3b: LecturerCode normalized match
+        var codeNormMatch = allLecturers.FirstOrDefault(l =>
+            l.LecturerCode != null &&
+            Normalize(l.LecturerCode) == normalized);
+        if (codeNormMatch != null)
+            return codeNormMatch.LecturerId;
+
+        // Step 3c: Contains match (partial name match)
+        var containsMatch = allLecturers.FirstOrDefault(l =>
+            Normalize(l.User.FullName).Contains(normalized) ||
+            normalized.Contains(Normalize(l.User.FullName)));
 
         return containsMatch?.LecturerId;
     }
@@ -62,20 +77,56 @@ public class LecturerNameMapper : ILecturerNameMapper
         var result = new Dictionary<string, Guid>(StringComparer.OrdinalIgnoreCase);
         var nameList = names.Distinct().ToList();
 
-        var lecturers = await _identityDb.Lecturers
+        if (nameList.Count == 0)
+            return result;
+
+        // Load all lecturers once for batch resolution (avoids N+1 queries)
+        var allLecturers = await _identityDb.Lecturers
             .Include(l => l.User)
-            .Where(l => nameList.Contains(l.User.FullName))
             .ToListAsync(ct);
 
-        foreach (var lecturer in lecturers)
-            result[lecturer.User.FullName] = lecturer.LecturerId;
+        // Pass 1: Exact FullName match
+        foreach (var lecturer in allLecturers)
+        {
+            var matchedName = nameList.FirstOrDefault(n =>
+                string.Equals(n, lecturer.User.FullName, StringComparison.OrdinalIgnoreCase));
+            if (matchedName != null && !result.ContainsKey(matchedName))
+                result[matchedName] = lecturer.LecturerId;
+        }
 
+        // Pass 2: LecturerCode match
         var unresolved = nameList.Where(n => !result.ContainsKey(n)).ToList();
         foreach (var name in unresolved)
         {
-            var id = await ResolveAsync(name, ct);
-            if (id.HasValue)
-                result[name] = id.Value;
+            var match = allLecturers.FirstOrDefault(l =>
+                l.LecturerCode != null &&
+                string.Equals(l.LecturerCode, name, StringComparison.OrdinalIgnoreCase));
+            if (match != null)
+                result[name] = match.LecturerId;
+        }
+
+        // Pass 3: Normalized match
+        unresolved = nameList.Where(n => !result.ContainsKey(n)).ToList();
+        foreach (var name in unresolved)
+        {
+            var normalized = Normalize(name);
+            var match = allLecturers.FirstOrDefault(l =>
+                Normalize(l.User.FullName) == normalized ||
+                (l.LecturerCode != null && Normalize(l.LecturerCode) == normalized));
+            if (match != null)
+                result[name] = match.LecturerId;
+        }
+
+        // Pass 4: Contains/partial match
+        unresolved = nameList.Where(n => !result.ContainsKey(n)).ToList();
+        foreach (var name in unresolved)
+        {
+            var normalized = Normalize(name);
+            var match = allLecturers.FirstOrDefault(l =>
+                Normalize(l.User.FullName).Contains(normalized) ||
+                normalized.Contains(Normalize(l.User.FullName)));
+            if (match != null)
+                result[name] = match.LecturerId;
         }
 
         return result;

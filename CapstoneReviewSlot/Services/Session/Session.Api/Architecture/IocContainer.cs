@@ -76,6 +76,7 @@ namespace Session.Api.Architecture
             IConfiguration configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", true, true)
                 .AddEnvironmentVariables()
                 .Build();
 
@@ -91,8 +92,10 @@ namespace Session.Api.Architecture
             );
 
             // Share IdentityDbContext for lecturer name resolution
+            // This must point to the Identity database where Lecturer/User tables exist
+            var identityConnectionString = configuration.GetConnectionString("IdentityDb");
             services.AddDbContext<IdentityDbContext>(options =>
-                options.UseSqlServer(connectionString, sql =>
+                options.UseSqlServer(identityConnectionString, sql =>
                 {
                     sql.CommandTimeout(60);
                     sql.EnableRetryOnFailure(3, TimeSpan.FromSeconds(5), null);
@@ -179,7 +182,8 @@ namespace Session.Api.Architecture
                         IssuerSigningKey =
                             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:SecretKey"] ??
                                                                             throw new InvalidOperationException())),
-                        NameClaimType = ClaimTypes.NameIdentifier
+                        NameClaimType = ClaimTypes.NameIdentifier,
+                        RoleClaimType = ClaimTypes.Role
                     };
                     x.Events = new JwtBearerEvents
                     {

@@ -1,4 +1,4 @@
-﻿using Assignment.Domain.Dtos;
+using Assignment.Domain.Dtos;
 using Assignment.Domain.Interfaces.Services;
 using Assignment.Domain.Ultils;
 using Microsoft.AspNetCore.Authorization;
@@ -183,7 +183,25 @@ namespace Assignment.Api.Controllers
             }
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<IActionResult> Create([FromBody] List<ReviewAssignmentReviewerDto> request)
+        {
+            try
+            {
+                var data = await _reviewAssignmentReviewerService.AddAsync(request);
+                return Ok(ApiResult<object>.Success(data, "201", "Create review assignment reviewers successfully."));
+            }
+            catch (Exception ex)
+            {
+                var statusCode = ExceptionUtils.ExtractStatusCode(ex);
+                var errorResponse = ExceptionUtils.CreateErrorResponse<List<ReviewAssignmentReviewerDto>>(ex);
+                return StatusCode(statusCode, errorResponse);
+            }
+        }
+
         [HttpPut("{id:guid}")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Update(Guid id, [FromBody] ReviewAssignmentReviewerDto request)
         {
             try
@@ -200,6 +218,7 @@ namespace Assignment.Api.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try
@@ -216,3 +235,4 @@ namespace Assignment.Api.Controllers
         }
     }
 }
+
